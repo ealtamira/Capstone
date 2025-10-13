@@ -4,6 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="Css/site.css">
+    <script src="JS/site.js"></script>
     <title>The Mirror Network | Empathy Compliance Portal</title>
 </head>
 <body>
@@ -13,21 +14,6 @@
   Please remain calm as our system reviews your interactions.<br><br>
   Non-compliance may result in reflection suspension.</p>
   <button onclick="verify()">VERIFY USER IDENTITY</button>
-
-  <script>
-    function verify() {
-      document.body.innerHTML = `
-        <p>Scanning sentiment history...</p>
-        <p>Analyzing empathy consistency...</p>
-        <p>Cross-referencing user reflection...</p>
-        <p><b>Welcome back, Observer.</b></p>
-      `;
-      setTimeout(() => {
-        document.body.innerHTML += `<p><i>@NullUser: "It’s already seen you."</i></p>`;
-      }, 5000);
-    }
-  </script>
-
   <!-- @NullUser: "It's watching you through the reflection." -->
 </body>
 </html>
