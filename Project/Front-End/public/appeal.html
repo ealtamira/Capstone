@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Mirror | Empathy Review Portal</title>
+  <link rel="stylesheet" href="CSS/site.css">
+</head>
+<body>
+  <div id="loading-screen">
+    <div class="loader-text">Synchronizing Reflection Data...</div>
+  </div>
+
+  <div class="container">
+    <header>
+      <h1>THE MIRROR</h1>
+      <p class="subtitle">Empathy Compliance Division</p>
+    </header>
+
+    <main>
+      <h2 id="welcome-msg">Empathy Violation #E-70213</h2>
+      <p class="intro">Your digital conduct has been flagged for review. Please confirm your identity and begin your empathy correction process.</p>
+
+      <form id="appeal-form">
+        <label for="user-id">User Handle:</label>
+        <input type="text" id="user-id" placeholder="@username" required />
+
+        <p class="forgot-link">
+          <a href="/username-puzzle" class="subtle-link">Forgot Username?</a>
+        </p>
+
+        <label for="violation">Alleged Offense:</label>
+        <textarea id="violation" rows="4" placeholder="Loading your behavioral summary..." readonly></textarea>
+
+        <button type="submit">Review Appeal</button>
+      </form>
+    </main>
+
+    <footer>
+      <p>© 2043 The Mirror Global Network | Emotional Clarity for All</p>
+    </footer>
+  </div>
+
+  <script src="JS/site.js"></script>
+</body>
+</html>

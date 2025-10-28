@@ -1,0 +1,526 @@
+/* ==============================
+   THE MIRROR INITIATIVE — CSS
+   ============================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600&family=Inter:wght@300;400;600&display=swap');
+
+:root {
+  --bg: #03050a;
+  --text: #e8f0ff;
+  --accent: #00ffff;
+  --danger: #ff005c;
+  --muted: #5e6c83;
+  --glow: 0 0 15px rgba(0, 255, 255, 0.5);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background: radial-gradient(circle at center, #05080f 0%, #010206 100%);
+  color: var(--text);
+  font-family: 'Inter', sans-serif;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  overflow-x: hidden;
+  text-align: center;
+  padding: 40px 20px;
+}
+
+/* HEADER */
+.mirror-header {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.glitch {
+  position: relative;
+  font-family: 'Orbitron', sans-serif;
+  font-size: 3rem;
+  font-weight: 600;
+  color: var(--accent);
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  text-shadow: var(--glow);
+  animation: flicker 3s infinite;
+}
+
+.glitch::before,
+.glitch::after {
+  content: attr(data-text);
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  overflow: hidden;
+  color: var(--danger);
+  clip: rect(0, 0, 0, 0);
+  animation: glitch 2s infinite linear alternate-reverse;
+}
+
+.glitch::after {
+  color: #00ffcc;
+  animation-delay: 1s;
+}
+
+@keyframes glitch {
+  0% { clip: rect(10px, 9999px, 35px, 0); transform: translate(2px, -2px); }
+  20% { clip: rect(50px, 9999px, 60px, 0); transform: translate(-2px, 2px); }
+  40% { clip: rect(20px, 9999px, 25px, 0); transform: translate(-1px, 0); }
+  60% { clip: rect(80px, 9999px, 85px, 0); transform: translate(1px, 2px); }
+  100% { clip: rect(40px, 9999px, 45px, 0); transform: translate(0, -1px); }
+}
+
+@keyframes flicker {
+  0%, 19%, 21%, 23%, 25%, 54%, 56%, 100% { opacity: 1; }
+  20%, 24%, 55% { opacity: 0.7; }
+}
+
+/* SLOGAN */
+.slogan {
+  font-size: 1rem;
+  color: var(--muted);
+  margin-top: 10px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+/* MAIN CONTENT */
+.mirror-main {
+  max-width: 700px;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 0 40px rgba(0, 255, 255, 0.08);
+  backdrop-filter: blur(4px);
+  transition: transform 0.2s ease-in-out;
+}
+
+.mirror-main:hover {
+  transform: scale(1.01);
+}
+
+.intro p {
+  margin: 1rem 0;
+  line-height: 1.6;
+}
+
+.highlight {
+  color: var(--accent);
+  text-shadow: 0 0 8px rgba(0, 255, 255, 0.6);
+}
+
+/* CTA BUTTON */
+.cta-button {
+  display: inline-block;
+  background: linear-gradient(90deg, var(--accent), #0077ff);
+  color: #000;
+  font-weight: 700;
+  padding: 12px 24px;
+  border-radius: 6px;
+  margin-top: 1.5rem;
+  text-decoration: none;
+  transition: all 0.2s ease;
+  box-shadow: var(--glow);
+}
+
+.cta-button:hover {
+  filter: brightness(1.3);
+  transform: scale(1.05);
+}
+
+/* HINT TEXT */
+.hint {
+  font-size: 0.9rem;
+  color: var(--muted);
+  margin-top: 1rem;
+  font-style: italic;
+}
+
+/* FOOTER */
+.mirror-footer {
+  margin-top: 3rem;
+  font-size: 0.8rem;
+  color: var(--muted);
+  opacity: 0.7;
+}
+
+/* ANIMATED SCANLINE OVERLAY */
+body::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: repeating-linear-gradient(
+    to bottom,
+    rgba(255, 255, 255, 0.02),
+    rgba(255, 255, 255, 0.02) 1px,
+    transparent 1px,
+    transparent 3px
+  );
+  pointer-events: none;
+  animation: scanline 6s linear infinite;
+}
+
+.microtext {
+  color: transparent;
+  user-select: none;
+  cursor: default;
+}
+
+.microtext:hover {
+  color: #00ffff;
+  text-shadow: 0 0 5px #00ffff;
+  cursor: pointer;
+}
+
+@keyframes scanline {
+  0% { background-position: 0 0; }
+  100% { background-position: 0 100px; }
+}
+
+.container {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 2rem 2.5rem;
+  width: 90%;
+  max-width: 650px;
+  backdrop-filter: blur(6px);
+  box-shadow: 0 0 40px rgba(0, 255, 255, 0.08);
+  animation: fadeIn 1.2s ease forwards;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: scale(0.97); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+/* HEADER */
+header h1 {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 2.5rem;
+  color: var(--accent);
+  letter-spacing: 3px;
+  text-shadow: var(--glow);
+}
+
+.subtitle {
+  font-size: 1rem;
+  color: var(--muted);
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  margin-top: 0.3rem;
+}
+
+/* MAIN */
+main {
+  margin-top: 2rem;
+}
+
+main h2 {
+  font-size: 1.3rem;
+  color: var(--danger);
+  text-transform: uppercase;
+  margin-bottom: 1rem;
+  letter-spacing: 1px;
+  animation: pulse 2.5s infinite ease-in-out;
+}
+
+@keyframes pulse {
+  0%, 100% { text-shadow: 0 0 8px rgba(255, 0, 92, 0.6); }
+  50% { text-shadow: 0 0 16px rgba(255, 0, 92, 0.8); }
+}
+
+.intro {
+  font-size: 1rem;
+  color: var(--muted);
+  margin-bottom: 2rem;
+  line-height: 1.6;
+  animation: flicker 5s infinite;
+}
+
+@keyframes flicker {
+  0%, 18%, 22%, 25%, 53%, 57%, 100% { opacity: 1; }
+  20%, 24%, 55% { opacity: 0.7; }
+}
+
+/* FORM */
+form {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 1rem;
+  text-align: left;
+}
+
+label {
+  font-weight: 600;
+  color: var(--accent);
+  text-transform: uppercase;
+  font-size: 0.9rem;
+  letter-spacing: 1px;
+}
+
+input,
+textarea {
+  background: rgba(0, 0, 0, 0.4);
+  border: 1px solid var(--border);
+  color: var(--text);
+  border-radius: 6px;
+  padding: 10px;
+  font-size: 1rem;
+  font-family: 'Inter', sans-serif;
+  resize: none;
+  outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+input:focus,
+textarea:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 10px rgba(0, 255, 255, 0.3);
+}
+
+/* BUTTON */
+button {
+  background: linear-gradient(90deg, var(--accent), #0077ff);
+  color: #000;
+  font-weight: 700;
+  border: none;
+  padding: 12px 0;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: transform 0.2s ease, filter 0.3s ease;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  box-shadow: var(--glow);
+}
+
+button:hover {
+  transform: scale(1.05);
+  filter: brightness(1.3);
+}
+
+button:active {
+  transform: scale(0.97);
+}
+
+/* FOOTER */
+footer {
+  margin-top: 2.5rem;
+  font-size: 0.85rem;
+  color: var(--muted);
+  opacity: 0.7;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+/* =============================
+   Loading Screen
+   ============================= */
+#loading-screen {
+  position: fixed;
+  inset: 0;
+  background: radial-gradient(circle at center, #000, #02040a);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  color: #00ffff;
+  font-family: 'Orbitron', sans-serif;
+  font-size: 1.2rem;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  z-index: 9999;
+  opacity: 1;
+  transition: opacity 1s ease;
+}
+
+.loader-text {
+  animation: flickerText 3s infinite;
+}
+
+@keyframes flickerText {
+  0%, 100% { opacity: 1; text-shadow: 0 0 10px #00ffff; }
+  50% { opacity: 0.5; text-shadow: 0 0 3px #00ffff; }
+}
+
+#loading-screen.fade-out {
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* === Puzzle Grid Styling === */
+.puzzle-grid {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-top: 3rem;
+  flex-wrap: wrap;
+}
+
+.puzzle-cell {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: rgba(0,0,0,0.2);
+  border: 1px solid rgba(255,255,255,0.2);
+  padding: 1rem;
+  border-radius: 10px;
+  color: #0ff;
+  font-size: 2rem;
+  font-family: 'Courier New', monospace;
+  transition: all 0.2s ease;
+}
+
+.puzzle-cell:hover {
+  background: rgba(0,255,255,0.1);
+}
+
+.puzzle-cell button {
+  background: none;
+  border: none;
+  color: #0ff;
+  font-size: 1.2rem;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.puzzle-cell button:hover {
+  color: #fff;
+}
+
+.hidden {
+  display: none;
+}
+
+#unlock-section {
+  margin-top: 2rem;
+  text-align: center;
+}
+
+#puzzle-input {
+  padding: 0.5rem;
+  border: 1px solid #0ff;
+  background: rgba(0,0,0,0.4);
+  color: #0ff;
+  font-family: 'Courier New', monospace;
+  font-size: 1rem;
+  width: 220px;
+  text-align: center;
+}
+
+#submit-btn {
+  margin-left: 10px;
+  padding: 0.5rem 1rem;
+  background: #0ff;
+  border: none;
+  color: #000;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: 0.2s;
+}
+
+#submit-btn:hover {
+  background: #fff;
+}
+
+#feedback {
+  margin-top: 1rem;
+  font-size: 1.1rem;
+}
+
+/* --- Reflection Page Styling --- */
+.reflection-page {
+  background: #000;
+  color: #0ff;
+  font-family: 'Courier New', monospace;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  flex-direction: column;
+  padding: 2rem;
+}
+
+.reflection-container {
+  text-align: center;
+  max-width: 600px;
+}
+
+.reflection-box {
+  background: rgba(0,255,255,0.05);
+  border: 1px solid #0ff;
+  border-radius: 10px;
+  padding: 1.5rem;
+  margin: 2rem 0;
+}
+
+.code-fragment {
+  background: rgba(0,0,0,0.2);
+  padding: 1rem;
+  border-radius: 5px;
+  text-align: left;
+  overflow-x: auto;
+}
+
+.hidden-message {
+  margin-top: 1rem;
+  font-size: 1.2rem;
+  color: #0ff;
+  background: rgba(0,255,255,0.1);
+  padding: 0.5rem;
+  border-radius: 5px;
+  word-break: break-all;
+}
+
+.cta-button {
+  display: inline-block;
+  margin-top: 1rem;
+  padding: 0.7rem 1.5rem;
+  background: #0ff;
+  color: #000;
+  font-weight: bold;
+  text-decoration: none;
+  border-radius: 5px;
+  transition: 0.3s;
+}
+
+.cta-button:hover {
+  background: #fff;
+  color: #000;
+}
+
+.forgot-link {
+  text-align: right;
+  margin-top: 4px;
+  margin-bottom: 16px;
+}
+
+.subtle-link {
+  font-size: 0.85rem;
+  color: rgba(255, 255, 255, 0.4);
+  text-decoration: none;
+  transition: color 0.3s ease, text-shadow 0.3s ease;
+}
+
+.subtle-link:hover {
+  color: #00ffff;
+  text-shadow: 0 0 5px #00ffff;
+}
+
+.riddle-clue {
+  font-style: italic;
+  color: #00ffff;
+  margin-top: 20px;
+}
