@@ -68,6 +68,6 @@ document.getElementById("copy-btn").addEventListener("click", () => {
   alert("Username copied to clipboard!");
   
   setTimeout(() => {
-    window.location.href = "/appeal.html";
+    window.location.href = "/appeal";
   }, 1000);
 });

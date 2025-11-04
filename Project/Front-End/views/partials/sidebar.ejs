@@ -1,0 +1,28 @@
+<!-- Sidebar -->
+<div id="menu-btn" class="menu-btn">☰</div>
+
+<div id="sidebar" class="sidebar">
+  <h2 class="sidebar-title">Toolbox</h2>
+  <ul class="sidebar-list">
+    <li><a href="/">🏠 Home</a></li>
+    <li><a href="/notebook">📓 Notes</a></li>
+  </ul>
+</div>
+
+<script>
+  const menuBtn = document.getElementById('menu-btn');
+  const sidebar = document.getElementById('sidebar');
+  const overlay = document.getElementById('overlay');
+
+  menuBtn.addEventListener('click', () => {
+    sidebar.classList.toggle('active');
+    overlay.classList.toggle('active');
+  });
+
+  overlay.addEventListener('click', () => {
+    sidebar.classList.remove('active');
+    overlay.classList.remove('active');
+  });
+</script>
+
+<div id="overlay" class="overlay"></div>
