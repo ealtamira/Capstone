@@ -10,7 +10,6 @@ document.addEventListener("DOMContentLoaded", () => {
   if (!mazeContainer || !cells.length || !statusEl || !clueEl || !codeEl) {
     return;
   }
-
   // Correct knight path from 08 to 21 on a 5x5 grid:
   // reflection_0821 -> start at tile 08, exit at tile 21
   const correctPath = [8, 19, 12, 21];

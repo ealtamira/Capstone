@@ -40,7 +40,11 @@ app.get("/gateway", (req, res) => res.render("pages/gateway", {
   scripts: `<script src="/JS/pages/gateway.js"></script>`
 }));
 
-app.get("/notebook", (req, res) => res.render("notebook"));
+app.get("/notebook", (req, res) => res.render("pages/notebook", {
+  layout: "layouts/main",
+  title: "The Mirror | Research Notebook",
+  scripts: `<script src="/JS/pages/notebook.js"></script>`
+}));
 
 app.get("/cipher", (req, res) => { res.render("pages/cipher", {
     layout: "layouts/main",

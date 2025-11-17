@@ -34,12 +34,9 @@ app.use(bodyParser.json());
 
 // --- Database Connection ---
 mongoose
-  .connect("mongodb://127.0.0.1:27017/notebookDB", {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  })
+  .connect("mongodb://127.0.0.1:27017/notebookDB")
   .then(() => console.log("✅ MongoDB Connected"))
-  .catch((err) => console.error("MongoDB Error:", err));
+  .catch((err) => console.error("MongoDB connection error:", err));
 
 // --- Routes ---
 

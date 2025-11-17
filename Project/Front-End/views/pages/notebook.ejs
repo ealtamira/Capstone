@@ -1,20 +1,69 @@
 <div class="notebook-container">
-  <h1 class="title">The Mirror Notebook</h1>
+  <header class="notebook-header">
+    <h1 class="title">The Mirror Notebook</h1>
+    <p class="subtitle">Capture clues, theories, and glitches in one place.</p>
+  </header>
 
-  <div class="notebook-controls">
-    <button id="newNoteBtn" type="button">+ New Note</button>
-  </div>
+  <div class="notebook-layout">
+    <!-- LEFT: SIDEBAR / NOTES LIST -->
+    <aside class="notebook-sidebar">
+      <div class="notebook-toolbar">
+        <button id="newNoteBtn" type="button" class="btn-primary">+ New Note</button>
+        <input
+          type="text"
+          id="searchInput"
+          class="search-input"
+          placeholder="Search notes..."
+          autocomplete="off"
+        />
+      </div>
 
-  <div class="notes-list" id="notesList"></div>
+      <div class="notes-list" id="notesList">
+        <!-- Notes will be injected here by JS -->
+        <div class="notes-empty" id="notesEmptyState">
+          <p>No notes yet.</p>
+          <p class="hint">Click <strong>+ New Note</strong> to start.</p>
+        </div>
+      </div>
+    </aside>
 
-  <div class="editor" id="editor">
-    <input type="text" id="noteTitle" placeholder="Note title..." />
-    <textarea id="noteContent" placeholder="Write your thoughts..."></textarea>
-    <div class="editor-actions">
-      <button id="saveNoteBtn" type="button">💾 Save</button>
-      <button id="deleteNoteBtn" type="button">🗑 Delete</button>
-    </div>
+    <!-- RIGHT: EDITOR -->
+    <main class="notebook-main">
+      <!-- Placeholder when no note is selected -->
+      <div class="editor-placeholder" id="editorPlaceholder">
+        <h2>Welcome to your notebook</h2>
+        <p>Select a note on the left, or create a new one to begin writing.</p>
+      </div>
+
+      <!-- Actual editor -->
+      <div class="editor hidden" id="editor">
+        <label class="field-label" for="noteTitle">Title</label>
+        <input
+          type="text"
+          id="noteTitle"
+          class="input-title"
+          placeholder="Note title…"
+        />
+
+        <label class="field-label" for="noteContent">Content</label>
+        <textarea
+          id="noteContent"
+          class="textarea-content"
+          placeholder="Write your thoughts, clues, or reflections here…"
+        ></textarea>
+
+        <div class="editor-footer">
+          <span class="status-text" id="saveStatus"></span>
+          <div class="editor-actions">
+            <button id="saveNoteBtn" type="button" class="btn-primary">
+              💾 Save
+            </button>
+            <button id="deleteNoteBtn" type="button" class="btn-danger">
+              🗑 Delete
+            </button>
+          </div>
+        </div>
+      </div>
+    </main>
   </div>
 </div>
-
-<script src="/JS/notebook.js"></script>

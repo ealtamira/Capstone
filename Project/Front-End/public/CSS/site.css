@@ -624,123 +624,109 @@ footer {
   opacity: 1;
   pointer-events: auto;
 }
-/* Notebook Page Specific Styles */
 
-#newNoteBtn.active {
-  transform: scale(0.95);
-  background: linear-gradient(90deg, var(--accent), #0077ff);
-  color: #000;
-  box-shadow: 0 0 12px var(--accent);
-  transition: all 0.2s ease;
+/* ==============================
+   NOTEBOOK PAGE STYLES
+   ============================== */
+
+.notebook-layout {
+  display: flex;
+  gap: 1rem;
+  max-width: 1100px;
+  margin: 0 auto;
 }
 
-
-.notebook-container {
-  color: var(--text);
-  background: var(--bg);
-  padding: 2rem;
-  font-family: 'Inter', sans-serif;
+.notebook-sidebar {
+  width: 30%;
+  min-width: 260px;
   display: flex;
   flex-direction: column;
-  align-items: center;
+  border-right: 1px solid rgba(255, 255, 255, 0.1);
 }
 
-.title {
-  font-family: 'Orbitron', sans-serif;
-  color: var(--accent);
-  margin-bottom: 1rem;
-  text-shadow: 0 0 8px var(--accent);
+.notebook-main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
 }
 
-.notebook-controls {
-  margin-bottom: 1rem;
+.notebook-toolbar {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 0.75rem;
 }
 
-#newNoteBtn {
-  background: var(--accent);
-  border: none;
-  color: black;
-  padding: 8px 14px;
-  border-radius: 8px;
-  cursor: pointer;
-  font-weight: bold;
-  transition: 0.2s;
-}
-
-#newNoteBtn:hover {
-  box-shadow: 0 0 10px var(--accent);
+.search-input {
+  flex: 1;
 }
 
 .notes-list {
-  width: 80%;
-  background: rgba(255, 255, 255, 0.05);
-  padding: 1rem;
-  border-radius: 8px;
-  max-height: 250px;
+  flex: 1;
   overflow-y: auto;
-  margin-bottom: 1rem;
-  border: 1px solid rgba(0, 255, 255, 0.2);
 }
 
 .note-item {
-  padding: 6px 10px;
-  margin: 4px 0;
-  background: rgba(0, 255, 255, 0.08);
-  border-radius: 6px;
+  padding: 0.5rem 0.75rem;
   cursor: pointer;
-  transition: 0.2s;
+  border-radius: 4px;
+  margin-bottom: 0.25rem;
 }
 
 .note-item:hover {
-  background: var(--accent);
-  color: black;
+  background: rgba(255, 255, 255, 0.05);
 }
 
-.editor {
+.note-item.active {
+  background: rgba(0, 255, 255, 0.15); /* or your accent color */
+}
+
+.note-item-title {
+  font-weight: 600;
+  font-size: 0.95rem;
+}
+
+.note-item-meta {
+  font-size: 0.75rem;
+  opacity: 0.7;
+}
+
+.note-item-snippet {
+  font-size: 0.8rem;
+  opacity: 0.8;
+}
+
+.editor.hidden {
   display: none;
-  width: 80%;
-  background: rgba(255, 255, 255, 0.08);
-  padding: 1rem;
-  border-radius: 8px;
-  border: 1px solid rgba(0, 255, 255, 0.2);
-  box-shadow: 0 0 15px rgba(0, 255, 255, 0.2);
 }
 
-.editor input,
-.editor textarea {
+.editor-placeholder {
+  text-align: center;
+  margin-top: 4rem;
+  opacity: 0.8;
+}
+
+.input-title,
+.textarea-content {
   width: 100%;
   margin-bottom: 0.5rem;
-  background: rgba(0, 0, 0, 0.6);
-  color: var(--text);
-  border: 1px solid var(--accent);
-  border-radius: 6px;
-  padding: 8px;
-  resize: vertical;
 }
 
-.editor textarea {
-  min-height: 180px;
-}
-
-.editor-actions {
+.editor-footer {
+  margin-top: 0.5rem;
   display: flex;
-  justify-content: flex-end;
-  gap: 0.5rem;
+  justify-content: space-between;
+  align-items: center;
 }
 
-.editor-actions button {
-  background: var(--accent);
-  border: none;
-  color: black;
-  padding: 6px 12px;
-  border-radius: 6px;
-  cursor: pointer;
-  transition: 0.2s;
+.status-text {
+  font-size: 0.8rem;
+  opacity: 0.7;
 }
 
-.editor-actions button:hover {
-  box-shadow: 0 0 8px var(--accent);
-}
+/* ==============================
+   CIPHER PAGE STYLES
+   ============================== */
+
 
 body {
   background: var(--bg, #0a0a0a);
