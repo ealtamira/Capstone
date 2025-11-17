@@ -1426,6 +1426,198 @@ button {
   }
 }
 
+/* === Depth Trace Layout === */
+
+.puzzle--depth-trace {
+  max-width: 1100px;
+  margin: 2.5rem auto;
+  padding: 2rem 1.75rem;
+  border-radius: 1.25rem;
+  border: 1px solid rgba(0, 255, 255, 0.28);
+  background: radial-gradient(circle at top,
+      rgba(0, 255, 255, 0.08),
+      rgba(3, 5, 10, 0.96));
+  box-shadow: 0 0 24px rgba(0, 0, 0, 0.85);
+}
+
+.puzzle--depth-trace .puzzle-header {
+  text-align: center;
+  margin-bottom: 1.5rem;
+}
+
+.puzzle--depth-trace .puzzle-title {
+  font-size: 1.6rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.puzzle--depth-trace .puzzle-subtitle {
+  margin-top: 0.5rem;
+  font-size: 0.95rem;
+  color: var(--muted, #5e6c83);
+}
+
+.puzzle--depth-trace .puzzle-lore,
+.puzzle--depth-trace .puzzle-body {
+  margin-top: 1rem;
+  font-size: 0.95rem;
+}
+
+.puzzle--depth-trace .puzzle-hint {
+  margin-top: 0.5rem;
+  font-style: italic;
+  color: var(--accent, #00ffff);
+}
+
+/* Trace layout */
+
+.trace-wrapper {
+  margin-top: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.75rem;
+}
+
+@media (min-width: 960px) {
+  .trace-wrapper {
+    flex-direction: row;
+    align-items: flex-start;
+  }
+}
+
+.trace-grid {
+  flex: 2;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 1rem;
+}
+
+@media (min-width: 960px) {
+  .trace-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+.trace-panel {
+  flex: 1;
+  max-width: 360px;
+  width: 100%;
+  font-size: 0.9rem;
+  line-height: 1.5;
+  padding: 0.9rem 1rem;
+  border-radius: 0.9rem;
+  border: 1px solid rgba(0, 255, 255, 0.25);
+  background: rgba(2, 8, 16, 0.9);
+}
+
+/* Trace cards */
+
+.trace-card {
+  padding: 0.85rem 0.9rem;
+  border-radius: 0.9rem;
+  border: 1px solid rgba(0, 255, 255, 0.18);
+  background: rgba(2, 6, 12, 0.95);
+}
+
+.trace-title {
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  margin-bottom: 0.4rem;
+  color: var(--accent, #00ffff);
+}
+
+.trace-body {
+  font-size: 0.9rem;
+  line-height: 1.45;
+}
+
+.trace-meta {
+  margin-top: 0.4rem;
+  font-size: 0.8rem;
+  color: var(--muted, #5e6c83);
+}
+
+.trace-meta span {
+  border-radius: 999px;
+  padding: 0.05rem 0.5rem;
+  border: 1px solid rgba(0, 255, 255, 0.2);
+  margin-right: 0.3rem;
+}
+
+.trace-select {
+  margin-top: 0.6rem;
+  width: 100%;
+  padding: 0.35rem 0.5rem;
+  border-radius: 0.5rem;
+  border: 1px solid rgba(0, 255, 255, 0.35);
+  background: rgba(1, 5, 10, 0.9);
+  color: var(--text, #e8f0ff);
+  font-size: 0.85rem;
+}
+
+/* Panel text */
+
+.trace-status {
+  margin-bottom: 0.75rem;
+}
+
+.trace-note {
+  font-size: 0.85rem;
+  color: var(--muted, #5e6c83);
+  margin-bottom: 1rem;
+}
+
+#trace-result.algorithm-result {
+  margin-top: 0.75rem;
+}
+
+.trace-panel .algorithm-clue {
+  margin-top: 1rem;
+}
+
+/* Hide code block initially */
+.algorithm-clue.is-hidden {
+  display: none;
+}
+
+/* Glitch levels — corrupt the cards more each time */
+
+.puzzle--depth-trace.glitch-1 .trace-card {
+  border-color: rgba(0, 255, 255, 0.5);
+  text-shadow: 1px 0 rgba(0, 255, 255, 0.4),
+               -1px 0 rgba(255, 0, 120, 0.3);
+}
+
+.puzzle--depth-trace.glitch-2 .trace-card {
+  animation: depth-card-jitter 0.2s infinite alternate;
+}
+
+@keyframes depth-card-jitter {
+  0% {
+    transform: translate(0, 0);
+  }
+  100% {
+    transform: translate(1px, -1px);
+  }
+}
+
+.puzzle--depth-trace.glitch-3 .trace-grid {
+  transform: skewX(-2deg) skewY(1deg);
+}
+
+.puzzle--depth-trace.glitch-3 .trace-card {
+  animation: depth-card-jitter-strong 0.16s infinite alternate;
+}
+
+@keyframes depth-card-jitter-strong {
+  0% {
+    transform: translate(-1px, 0) scale(1);
+  }
+  100% {
+    transform: translate(2px, -1px) scale(1.01);
+  }
+}
 
 /* ==============================
     END OF SITE.CSS

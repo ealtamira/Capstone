@@ -86,6 +86,12 @@ app.get("/echo-index", (req, res) => { res.render("pages/echo-index", {
   });
 });
 
+app.get("/depth-trace", (req, res) => { res.render("pages/depth-trace", {
+    layout: "layouts/main",
+    title: "The Mirror | Depth Trace",
+    scripts: `<script src="/JS/pages/depth-trace.js"></script>`
+  });
+});
 
 
 // Start server
