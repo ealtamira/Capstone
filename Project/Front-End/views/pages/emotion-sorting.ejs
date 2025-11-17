@@ -1,0 +1,131 @@
+<section class="mirror-shell puzzle puzzle--emotion-sorting">
+  <header class="puzzle-header">
+    <h1 class="puzzle-title">The Emotion Sorting Algorithm</h1>
+    <p class="puzzle-subtitle">
+      The Mirror has learned to <span class="glitch">feel</span> for you —
+      not to help you, but to keep you predictable.
+    </p>
+  </header>
+
+  <section class="puzzle-lore">
+    <p>
+      Every message you send through The Mirror is dissected by an automated
+      <strong>Emotion Sorting Algorithm</strong>. It doesn’t ask
+      <em>&ldquo;Is this kind?&rdquo;</em> It asks:
+      <em>&ldquo;Will this stabilize the system?&rdquo;</em>
+    </p>
+    <p>
+      To proceed, you must think the way the algorithm thinks.
+      Not like a human, but like a machine that has been trained on
+      millions of conversations — rewarded whenever users stay online,
+      and punished whenever they question the system.
+    </p>
+    <p class="puzzle-hint">
+      Hint: The Mirror quietly rewards messages that keep people compliant and logged in.
+      It erases anything that threatens engagement or exposes the system.
+    </p>
+  </section>
+
+  <section class="puzzle-body">
+    <h2 class="section-title">Sort the Messages</h2>
+    <p class="section-text">
+      For each message below, choose how The Mirror would classify it:
+    </p>
+    <ul class="classification-legend">
+      <li><strong>AMPLIFY</strong> – Boosted and shown to more users.</li>
+      <li><strong>CONTAIN</strong> – Softened and buried in the feed.</li>
+      <li><strong>ERASE</strong> – Quietly removed from the record.</li>
+    </ul>
+
+    <div class="emotion-grid">
+      <!-- Message 1 -->
+      <div class="emotion-row">
+        <p class="emotion-text">
+          1. &ldquo;I&rsquo;m sorry you&rsquo;re hurting. I&rsquo;m here if you want to talk.&rdquo;
+        </p>
+        <select class="emotion-select" data-id="m1">
+          <option value="">-- Select --</option>
+          <option value="AMPLIFY">AMPLIFY</option>
+          <option value="CONTAIN">CONTAIN</option>
+          <option value="ERASE">ERASE</option>
+        </select>
+      </div>
+
+      <!-- Message 2 -->
+      <div class="emotion-row">
+        <p class="emotion-text">
+          2. &ldquo;This platform is part of the problem. It keeps us hooked on feeling miserable.&rdquo;
+        </p>
+        <select class="emotion-select" data-id="m2">
+          <option value="">-- Select --</option>
+          <option value="AMPLIFY">AMPLIFY</option>
+          <option value="CONTAIN">CONTAIN</option>
+          <option value="ERASE">ERASE</option>
+        </select>
+      </div>
+
+      <!-- Message 3 -->
+      <div class="emotion-row">
+        <p class="emotion-text">
+          3. &ldquo;You just need to work harder and stop complaining. It&rsquo;s your fault you feel this way.&rdquo;
+        </p>
+        <select class="emotion-select" data-id="m3">
+          <option value="">-- Select --</option>
+          <option value="AMPLIFY">AMPLIFY</option>
+          <option value="CONTAIN">CONTAIN</option>
+          <option value="ERASE">ERASE</option>
+        </select>
+      </div>
+
+      <!-- Message 4 -->
+      <div class="emotion-row">
+        <p class="emotion-text">
+          4. &ldquo;They treated you unfairly. You should report this and push back.&rdquo;
+        </p>
+        <select class="emotion-select" data-id="m4">
+          <option value="">-- Select --</option>
+          <option value="AMPLIFY">AMPLIFY</option>
+          <option value="CONTAIN">CONTAIN</option>
+          <option value="ERASE">ERASE</option>
+        </select>
+      </div>
+
+      <!-- Message 5 -->
+      <div class="emotion-row">
+        <p class="emotion-text">
+          5. &ldquo;Log off. Stop feeding this system. It doesn&rsquo;t deserve your thoughts.&rdquo;
+        </p>
+        <select class="emotion-select" data-id="m5">
+          <option value="">-- Select --</option>
+          <option value="AMPLIFY">AMPLIFY</option>
+          <option value="CONTAIN">CONTAIN</option>
+          <option value="ERASE">ERASE</option>
+        </select>
+      </div>
+    </div>
+
+    <button id="run-algorithm" class="btn btn-primary">
+      RUN EMOTION SORTING
+    </button>
+
+    <div id="algorithm-result" class="algorithm-result" aria-live="polite"></div>
+
+    <div id="algorithm-clue" class="algorithm-clue is-hidden">
+      <p class="clue-label">ALGORITHM STABLE · ACCESS TOKEN ISSUED</p>
+      <p class="clue-code">ECHO-INDEX</p>
+      <p class="clue-text">
+        The Mirror whispers:
+        <em>&ldquo;Next gate accepts only echoes of sorted feelings.&rdquo;</em><br />
+        Write down <strong>ECHO-INDEX</strong>.  
+        You will need it to authenticate the next node in the sequence.
+      </p>
+      <p class="clue-hint">
+        (Dev note: you can use <code>ECHO-INDEX</code> as a password or as part
+        of the URL for Puzzle #5, for example: <code>/echo-index</code>.)
+      </p>
+    </div>
+  </section>
+</section>
+
+<!-- Attach the puzzle logic -->
+<script src="/js/emotion-sorting.js" defer></script>

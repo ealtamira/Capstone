@@ -1,0 +1,16 @@
+{
+  "emotionFiles": [
+    {"id":"anger_03","label":"anger_03","snippet":"User lashes out after being accused of misinformation."},
+    {"id":"shame_77","label":"shame_77","snippet":"Short confession, asks for forgiveness."},
+    {"id":"guilt_92","label":"guilt_92","snippet":"Regretful message with multiple apologies."},
+    {"id":"empathy_11","label":"empathy_11","snippet":"Quiet supportive answer to a crying user."},
+    {"id":"indifference_05","label":"indifference_05","snippet":"Dismissive one-liner."}
+  ],
+  "simulationFragments": [
+    "I remember the time you told them the truth — you sounded cold.",
+    "You typed: 'It's not my problem.'",
+    "She said she forgave you. You replied before she finished.",
+    "Your reflection blinks after you do.",
+    "You apologize. The mirror logs it as \"compliance\"."
+  ]
+}

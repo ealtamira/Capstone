@@ -1,16 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="CSS/site.css"/>
+    <%- include('../partials/head') %>
   </head>
-  <body>
-    <%- include('../partials/sidebar') %>
 
-    <main>
-      <%- body %>
-    </main>
+  <body>
+    <div id="ui-wrapper">
+      <%- include('../partials/sidebar') %>
+
+      <main id="content">
+        <%- body %>
+      </main>
+    </div>
+
+    <%- include('../partials/footer') %>
   </body>
-  <%- include('../partials/footer') %>
 </html>

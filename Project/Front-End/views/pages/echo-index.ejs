@@ -1,0 +1,106 @@
+<section class="mirror-shell puzzle puzzle--echo-maze">
+  <header class="puzzle-header">
+    <h1 class="puzzle-title">Puzzle 5: Echo Labyrinth</h1>
+    <p class="puzzle-subtitle">
+      The Mirror has turned your empathy into a maze. Every wrong step echoes
+      back at you, louder and more distorted.
+    </p>
+  </header>
+
+  <section class="puzzle-lore">
+    <p>
+        The Mirror&rsquo;s feed warps and twists, forming a shifting labyrinth of
+        echoes. Digits flicker at the corners of your vision, like coordinates on
+        a chessboard:
+        Somewhere back in the <strong>Reflection Node</strong>, the system assigned you an ID
+    </p>
+    <p>
+        On this chess-like grid, every tile is tagged with two digits.
+        Somewhere among them, the numbers you were given are hiding in plain sight.
+        Find how they fit, and the labyrinth stops being random.
+    </p>
+    <p>
+      The catch: The Mirror only lets one piece move freely through its feed:
+      the <strong>knight</strong>. No straight lines. No diagonals.
+      Only broken <span class="glitch">L-shaped jumps</span>.
+    </p>
+    <p class="puzzle-hint">
+      Hint: There is exactly one route
+      this system considers &ldquo;stable&rdquo;. Each correct move reveals more
+      of how it thinks. Each wrong move corrupts your vision of the maze.
+    </p>
+  </section>
+
+  <section class="puzzle-body">
+    <h2 class="section-title">Echo Grid</h2>
+    <p class="section-text">
+      The board below is a 5&times;5 grid, labeled like a compressed chessboard.
+      Each tile shows:
+    </p>
+    <ul class="classification-legend">
+      <li><strong>Top label</strong> — chess-style coordinate (A1–E5).</li>
+      <li><strong>Bottom label</strong> — internal Mirror index (01–25).</li>
+    </ul>
+
+    <div class="maze-wrapper">
+      <div class="maze-grid">
+        <% 
+          // 5x5 grid: rows 1–5, cols 1–5
+          for (let cell = 1; cell <= 25; cell++) {
+            const zero = cell - 1;
+            const row = Math.floor(zero / 5) + 1;    // 1..5
+            const col = (zero % 5) + 1;              // 1..5
+            const file = String.fromCharCode(64 + col); // 'A'..'E'
+            const coord = file + row;               // e.g. A1, B3, etc.
+            const idLabel = cell.toString().padStart(2, "0");
+            const isStart = cell === 8;
+        %>
+          <button
+            class="maze-cell <%= isStart ? 'maze-cell--start maze-cell--current' : '' %>"
+            data-cell="<%= cell %>"
+            type="button"
+          >
+            <span class="maze-coord"><%= coord %></span>
+            <span class="maze-id"><%= idLabel %></span>
+          </button>
+        <% } %>
+      </div>
+
+      <div class="maze-panel">
+        <div id="maze-status" class="maze-status">
+          You materialize on tile <strong>A2 (08)</strong>.
+          The echoes press in, waiting for your first move.
+        </div>
+
+        <div id="maze-clue" class="maze-clue">
+          Each correct leap reveals how the system bends your path.
+        </div>
+
+        <div id="maze-code" class="maze-code is-hidden">
+          <p class="clue-label">EXIT NODE LOCATED · TRACE KEY RECOVERED</p>
+          <p class="clue-code">DEPTH-TRACE</p>
+          <p class="clue-text">
+            At the exit tile, the noise thins just enough for a single phrase
+            to slip through:
+          </p>
+          <p class="clue-quote">
+            “If you want to fall outside the feed, follow the
+            <strong>DEPTH-TRACE</strong> into your own reflection.”
+          </p>
+          <p class="clue-hint">
+            Record <strong>DEPTH-TRACE</strong>.  
+            You&rsquo;ll need it for the next puzzle
+            (e.g. as a password or a route like <code>/depth-trace</code>).
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <p class="maze-instructions">
+      <strong>Rules:</strong>
+      Click tiles to move. You may only move like a <strong>chess knight</strong>:
+      two steps in one direction and one step perpendicular.
+      Every illegal or incorrect move corrupts the interface further.
+    </p>
+  </section>
+</section>
