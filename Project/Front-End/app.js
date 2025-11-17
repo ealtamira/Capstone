@@ -46,10 +46,10 @@ app.get("/notebook", (req, res) => res.render("pages/notebook", {
   scripts: `<script src="/JS/pages/notebook.js"></script>`
 }));
 
-app.get("/cipher", (req, res) => { res.render("pages/cipher", {
+app.get("/ceasercipher", (req, res) => { res.render("pages/ceasercipher", {
     layout: "layouts/main",
     title: "The Mirror | Cipher Tool",
-    scripts: `<script src="/JS/pages/cipher.js"></script>`,
+    scripts: `<script src="/JS/pages/ceasercipher.js"></script>`,
     result: null, text: "", shift: "" 
   });
 });

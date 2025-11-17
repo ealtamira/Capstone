@@ -1,0 +1,62 @@
+<div class="container cipher-container">
+  <header class="cipher-header">
+    <h1 class="glitch" data-text="CAESAR DECODER">CAESAR DECODER</h1>
+    <p class="subtitle">
+      Legacy Decryption Utility · Used by The Mirror to reconstruct “corrected” messages.
+    </p>
+  </header>
+
+  <main class="cipher-main">
+    <section class="cipher-info">
+      <p class="intro">
+        Enter an encoded message and a shift value to decode it.  
+        The Mirror uses this tool to “clarify” what people <span class="highlight">really meant</span>.
+      </p>
+      <p class="microtext">
+        Note: Decryption accuracy may be adjusted for compliance.
+      </p>
+    </section>
+
+    <section class="cipher-card">
+      <form id="decodeForm" class="cipher-form">
+        <div class="field-group">
+          <label for="text">Encoded Text</label>
+          <textarea
+            id="text"
+            class="input-field"
+            rows="4"
+            placeholder="Enter your encoded text here..."
+          ></textarea>
+        </div>
+
+        <div class="field-row">
+          <div class="field-group">
+            <label for="shift">Shift Amount</label>
+            <input
+              id="shift"
+              type="number"
+              class="input-field"
+              min="0"
+              max="25"
+              placeholder="Shift value (e.g. 3)"
+            />
+          </div>
+
+          <div class="field-group button-group">
+            <label>&nbsp;</label>
+            <button type="submit" class="cta-button full-width">
+              Decode Message
+            </button>
+          </div>
+        </div>
+      </form>
+
+      <div id="resultBox" class="result-box">
+        <h2>Decoded Result</h2>
+        <pre id="resultText" class="code-fragment">
+Awaiting decryption output...
+        </pre>
+      </div>
+    </section>
+  </main>
+</div>
