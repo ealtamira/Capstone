@@ -71,6 +71,49 @@ setTimeout(() => {
   console.log("%cDeviation detected: 0.3%. Within acceptable range.", "color:#ff00ff;");
 }, 6000);;
 
+// ===== MIRROR DISTURBANCE (Glitch + Watching Eye) =====
+
+(() => {
+  let overlay;
+  let eye;
+  let lastTrigger = 0;
+
+  function ensureElements() {
+    if (overlay && eye) return;
+
+    overlay = document.createElement("div");
+    overlay.id = "mirror-disturbance";
+    overlay.innerHTML = `
+      <div class="glitch-overlay"></div>
+      <div class="mirror-eye" aria-hidden="true">
+        <div class="eye-ring"></div>
+        <div class="eye-iris"></div>
+        <div class="eye-pupil"></div>
+        <div class="eye-glare"></div>
+      </div>
+    `;
+    document.body.appendChild(overlay);
+    eye = overlay.querySelector(".mirror-eye");
+  }
+
+  function triggerMirrorDisturbance() {
+    const now = Date.now();
+    if (now - lastTrigger < 600) return; // throttle rapid spam
+    lastTrigger = now;
+
+    ensureElements();
+    document.body.classList.add("mirror-disturbance");
+    overlay.classList.add("is-active");
+
+    setTimeout(() => {
+      overlay && overlay.classList.remove("is-active");
+      document.body.classList.remove("mirror-disturbance");
+    }, 1400);
+  }
+
+  window.triggerMirrorDisturbance = triggerMirrorDisturbance;
+})();
+
 // ===== LOADING SCREEN =====
 
 window.addEventListener("load", () => {
@@ -95,5 +138,4 @@ document.addEventListener("DOMContentLoaded", () => {
     window.location.href = '/gateway-puzzle';
   });
 });
-
 
