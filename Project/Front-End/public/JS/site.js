@@ -94,6 +94,36 @@ document.addEventListener("DOMContentLoaded", () => {
   let eye;
   let lastTrigger = 0;
 
+  const eyePositions = [
+    { top: "52px", right: "48px" },
+    { top: "48px", left: "42px" },
+    { bottom: "48px", right: "52px" },
+    { bottom: "60px", left: "50px" },
+    { top: "120px", right: "32px" }
+  ];
+
+  const eyePositionMap = {
+    "/": 0,
+    "/gateway": 2,
+    "/appeal": 1,
+    "/notebook": 3,
+    "/ceasercipher": 0,
+    "/empathy-test": 2,
+    "/emotion-sorting": 1,
+    "/echo-index": 3,
+    "/depth-trace": 4,
+    "/final": 2
+  };
+
+  function applyEyePosition() {
+    if (!overlay) return;
+    const idx = eyePositionMap[window.location.pathname] ?? Math.floor(Math.random() * eyePositions.length);
+    const pos = eyePositions[idx];
+    ["top", "right", "bottom", "left"].forEach((key) => {
+      overlay.style.setProperty(`--eye-${key}`, pos[key] ?? "auto");
+    });
+  }
+
   function ensureElements() {
     if (overlay && eye) return;
 
@@ -110,6 +140,7 @@ document.addEventListener("DOMContentLoaded", () => {
     `;
     document.body.appendChild(overlay);
     eye = overlay.querySelector(".mirror-eye");
+    applyEyePosition();
   }
 
   function triggerMirrorDisturbance(mood = "standard") {

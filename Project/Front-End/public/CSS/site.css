@@ -10,6 +10,9 @@
 
 html {
   background-color: #010206;
+  min-height: 100%;
+  height: 100%;
+  overflow: hidden;
 }
 
 :root {
@@ -45,7 +48,7 @@ body {
   justify-content: center;
   min-height: 100vh;
   overscroll-behavior: contain;
-  overflow-x: hidden;
+  overflow: hidden;
   text-align: center;
   padding: 28px 16px;
   transform: translateZ(0);
@@ -70,6 +73,9 @@ body.tilted {
   width: 100%;
   max-width: 1200px;
   margin: 0 auto;
+  height: 100vh;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
 }
 
 @keyframes ambientShift {
@@ -214,6 +220,16 @@ body::before {
   );
   pointer-events: none;
   animation: scanline 6s linear infinite;
+  z-index: 0;
+}
+
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0 0 -2px 0;
+  background: linear-gradient(to bottom, transparent 0%, transparent 88%, rgba(1,2,6,0.92) 98%, rgba(1,2,6,1) 100%);
+  pointer-events: none;
+  z-index: 1;
 }
 
 .microtext {
@@ -566,7 +582,7 @@ textarea[aria-invalid="true"]::placeholder {
   position: fixed;
   inset: 0;
   pointer-events: none;
-  z-index: 2000;
+  z-index: 2050;
   opacity: 0;
   transition: opacity 0.25s ease;
 }
@@ -616,10 +632,12 @@ textarea[aria-invalid="true"]::placeholder {
 
 .mirror-eye {
   position: absolute;
-  top: 52px;
-  right: 48px;
-  width: 76px;
-  height: 76px;
+  top: var(--eye-top, 52px);
+  right: var(--eye-right, auto);
+  bottom: var(--eye-bottom, auto);
+  left: var(--eye-left, 48px);
+  width: 88px;
+  height: 88px;
   border-radius: 50%;
   display: grid;
   place-items: center;
@@ -627,6 +645,7 @@ textarea[aria-invalid="true"]::placeholder {
   opacity: 0;
   transform: translateY(-12px) scale(0.92);
   transition: opacity 0.2s ease, transform 0.2s ease;
+  z-index: 2150;
 }
 
 #mirror-disturbance.is-active .mirror-eye {
@@ -639,14 +658,16 @@ textarea[aria-invalid="true"]::placeholder {
   height: 100%;
   border-radius: 50%;
   border: 2px solid var(--accent);
-  box-shadow: 0 0 18px var(--eye-glow), inset 0 0 12px rgba(0, 255, 255, 0.4);
+  box-shadow:
+    0 0 25px var(--eye-glow),
+    inset 0 0 12px rgba(0, 255, 255, 0.4);
   animation: eye-ring-spin 3s linear infinite;
 }
 
 .eye-iris {
   position: absolute;
-  width: 48px;
-  height: 48px;
+  width: 54px;
+  height: 54px;
   border-radius: 50%;
   background: radial-gradient(circle at 30% 30%, #9af8ff, var(--eye-iris));
   box-shadow: inset 0 0 8px rgba(0, 0, 0, 0.5);
@@ -654,8 +675,8 @@ textarea[aria-invalid="true"]::placeholder {
 
 .eye-pupil {
   position: absolute;
-  width: 18px;
-  height: 18px;
+  width: 20px;
+  height: 20px;
   border-radius: 50%;
   background: radial-gradient(circle at 40% 40%, #1e1e1e, var(--eye-pupil));
   animation: pupil-shift 1.4s ease-in-out infinite;
@@ -756,6 +777,16 @@ footer {
   opacity: 0.7;
   text-transform: uppercase;
   letter-spacing: 1px;
+  width: 100%;
+  max-width: 1200px;
+  padding-bottom: 1rem;
+  flex-shrink: 0;
+}
+
+.site-footer {
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 /* =============================
