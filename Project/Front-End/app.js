@@ -141,6 +141,37 @@ app.get("/vigenere", (req, res) => { res.render("pages/vigenere", {
   });
 });
 
+app.get("/rot13", (req, res) => { res.render("pages/rot13", {
+    layout: "layouts/main",
+    title: "The Mirror | ROT13 Decoder",
+    scripts: `<script src="/JS/pages/rot13.js"></script>`,
+    result: null, text: "" 
+  });
+});
+
+app.get("/base64", (req, res) => { res.render("pages/base64", {
+    layout: "layouts/main",
+    title: "The Mirror | Base64 Decoder",
+    scripts: `<script src="/JS/pages/base64.js"></script>`,
+    result: null, text: "" 
+  });
+});
+
+app.get("/rail", (req, res) => { res.render("pages/rail", {
+    layout: "layouts/main",
+    title: "The Mirror | Rail Fence Tool",
+    scripts: `<script src="/JS/pages/rail.js"></script>`,
+    result: null, text: "", rails: 3 
+  });
+});
+
+app.get("/image-editor", (req, res) => { res.render("pages/image-editor", {
+    layout: "layouts/main",
+    title: "The Mirror | Image Editor",
+    scripts: `<script src="/JS/pages/image-editor.js"></script>`
+  });
+});
+
 // Final act: root choice / endings
 app.get("/final", (req, res) => {
   res.render("pages/final-choice", {

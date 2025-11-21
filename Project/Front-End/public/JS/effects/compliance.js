@@ -1,7 +1,7 @@
 // Compliance state manager (ties HUD to endings)
 (function () {
   const STORAGE_KEY = "mirror_compliance";
-  const DEFAULT_VALUE = 96;
+  const DEFAULT_VALUE = 98;
 
   const clamp = (v) => Math.max(0, Math.min(100, Math.round(v)));
 

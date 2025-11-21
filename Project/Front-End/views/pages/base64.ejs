@@ -1,0 +1,29 @@
+<div class="container cipher-container">
+  <header class="cipher-header">
+    <h1 class="glitch" data-text="BASE64 DECODER">BASE64 DECODER</h1>
+    <p class="subtitle">"If the Mirror double-encodes, peel the surface first."</p>
+  </header>
+
+  <main class="cipher-main">
+    <section class="cipher-info">
+      <p class="intro">Decode Base64 payloads. If it looks like gibberish, maybe it wants another layer.</p>
+    </section>
+
+    <section class="cipher-card">
+      <form id="b64Form" class="cipher-form">
+        <div class="field-group">
+          <label for="b64-text">Encoded Text</label>
+          <textarea id="b64-text" class="input-field" rows="4" placeholder="RW52ZWxvcGUgdGhlIHN0cmluZw=="></textarea>
+        </div>
+        <div class="field-group button-group">
+          <label>&nbsp;</label>
+          <button type="submit" class="cta-button full-width">Decode</button>
+        </div>
+      </form>
+      <div id="b64-result-box" class="result-box">
+        <h2>Result</h2>
+        <pre id="b64-result" class="code-fragment">Awaiting decoded text...</pre>
+      </div>
+    </section>
+  </main>
+</div>

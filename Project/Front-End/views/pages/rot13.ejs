@@ -1,0 +1,29 @@
+<div class="container cipher-container">
+  <header class="cipher-header">
+    <h1 class="glitch" data-text="ROT13 DECODER">ROT13 DECODER</h1>
+    <p class="subtitle">"Sometimes the Mirror hides a hint in the simplest shift."</p>
+  </header>
+
+  <main class="cipher-main">
+    <section class="cipher-info">
+      <p class="intro">Paste text to rotate by 13. If it still reads nonsense, it wasn't meant to be solved here.</p>
+    </section>
+
+    <section class="cipher-card">
+      <form id="rot13Form" class="cipher-form">
+        <div class="field-group">
+          <label for="rot-text">Text</label>
+          <textarea id="rot-text" class="input-field" rows="4" placeholder="Guvf vf na rknzcyr..."></textarea>
+        </div>
+        <div class="field-group button-group">
+          <label>&nbsp;</label>
+          <button type="submit" class="cta-button full-width">Decode</button>
+        </div>
+      </form>
+      <div id="rot-result-box" class="result-box">
+        <h2>Result</h2>
+        <pre id="rot-result" class="code-fragment">Awaiting rotation...</pre>
+      </div>
+    </section>
+  </main>
+</div>

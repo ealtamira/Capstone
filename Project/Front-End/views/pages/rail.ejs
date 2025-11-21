@@ -1,0 +1,37 @@
+<div class="container cipher-container">
+  <header class="cipher-header">
+    <h1 class="glitch" data-text="RAIL FENCE TOOL">RAIL FENCE TOOL</h1>
+    <p class="subtitle">"If the message zig-zags, try untangling its rails."</p>
+  </header>
+
+  <main class="cipher-main">
+    <section class="cipher-info">
+      <p class="intro">Decode Rail Fence (zig-zag) messages. Adjust rails if the output still feels scrambled.</p>
+    </section>
+
+    <section class="cipher-card">
+      <form id="railForm" class="cipher-form">
+        <div class="field-group">
+          <label for="rail-text">Encoded Text</label>
+          <textarea id="rail-text" class="input-field" rows="4" placeholder="WECRLTEERDSOEEFEAOCAIVDEN"></textarea>
+        </div>
+
+        <div class="field-row">
+          <div class="field-group">
+            <label for="rail-rails">Rails</label>
+            <input id="rail-rails" type="number" class="input-field" min="2" max="10" value="3" />
+          </div>
+          <div class="field-group button-group">
+            <label>&nbsp;</label>
+            <button type="submit" class="cta-button full-width">Decode</button>
+          </div>
+        </div>
+      </form>
+
+      <div id="rail-result-box" class="result-box">
+        <h2>Result</h2>
+        <pre id="rail-result" class="code-fragment">Awaiting decoded text...</pre>
+      </div>
+    </section>
+  </main>
+</div>

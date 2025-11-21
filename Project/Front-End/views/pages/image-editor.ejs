@@ -1,0 +1,24 @@
+<div class="container cipher-container">
+  <header class="cipher-header">
+    <h1 class="glitch" data-text="IMAGE EDITOR">IMAGE EDITOR</h1>
+    <p class="subtitle">"Adjust, distort, and export. The Mirror prefers compliant pixels."</p>
+  </header>
+
+  <main class="cipher-main">
+    <section class="cipher-info">
+      <p class="intro">Load an image, tweak opacity/rotation, apply grayscale, then export.</p>
+      <input type="file" id="img-input" accept="image/*" class="input-field" />
+    </section>
+
+    <section class="cipher-card image-tools">
+      <canvas id="img-canvas" width="640" height="360"></canvas>
+      <div class="toolbar">
+        <label>Opacity: <input type="range" id="img-opacity" min="10" max="100" value="100" /></label>
+        <label>Rotate: <button id="rotate-left" class="btn">⟲</button> <button id="rotate-right" class="btn">⟳</button></label>
+        <label><input type="checkbox" id="img-grayscale" /> Grayscale</label>
+        <button id="reset-img" class="btn btn-primary">Reset</button>
+        <button id="download-img" class="btn btn-primary">Download</button>
+      </div>
+    </section>
+  </main>
+</div>
