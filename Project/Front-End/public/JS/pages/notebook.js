@@ -1,5 +1,3 @@
-// notebook.js — improved UX for note creation, saving, deleting, and browsing
-
 document.addEventListener("DOMContentLoaded", () => {
   const newNoteBtn = document.getElementById("newNoteBtn");
   const editor = document.getElementById("editor");
@@ -119,7 +117,7 @@ document.addEventListener("DOMContentLoaded", () => {
   // Load notes from backend
   async function loadNotes() {
     try {
-      const res = await fetch("http://localhost:3030/api/notes");
+      const res = await fetch("/api/notes");
       const notes = await res.json();
       allNotes = notes;
       renderNotes(allNotes);
@@ -160,8 +158,8 @@ document.addEventListener("DOMContentLoaded", () => {
       try {
         const method = currentNoteId ? "PUT" : "POST";
         const url = currentNoteId
-          ? `http://localhost:3030/api/notes/${currentNoteId}`
-          : `http://localhost:3030/api/notes`;
+          ? `/api/notes/${currentNoteId}`
+          : `/api/notes`;
 
         const response = await fetch(url, {
           method,
@@ -207,12 +205,9 @@ document.addEventListener("DOMContentLoaded", () => {
       if (!confirm("Delete this note? This cannot be undone.")) return;
 
       try {
-        const res = await fetch(
-          `http://localhost:3030/api/notes/${currentNoteId}`,
-          {
-            method: "DELETE",
-          }
-        );
+        const res = await fetch(`/api/notes/${currentNoteId}`, {
+          method: "DELETE",
+        });
 
         if (!res.ok) throw new Error("Delete failed");
 
