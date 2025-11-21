@@ -11,6 +11,10 @@
   --danger: #ff005c;
   --muted: #5e6c83;
   --glow: 0 0 15px rgba(0, 255, 255, 0.5);
+  --panel: rgba(255, 255, 255, 0.03);
+  --border: rgba(0, 255, 255, 0.18);
+  --eye-iris: #1be7ff;
+  --eye-pupil: #02070f;
 }
 
 * {
@@ -261,11 +265,6 @@ main h2 {
   animation: flicker 5s infinite;
 }
 
-@keyframes flicker {
-  0%, 18%, 22%, 25%, 53%, 57%, 100% { opacity: 1; }
-  20%, 24%, 55% { opacity: 0.7; }
-}
-
 /* FORM */
 form {
   display: flex;
@@ -301,6 +300,49 @@ input:focus,
 textarea:focus {
   border-color: var(--accent);
   box-shadow: 0 0 10px rgba(0, 255, 255, 0.3);
+}
+
+/* Error / validation states with a watchful eye */
+input.error,
+textarea.error,
+input[aria-invalid="true"],
+textarea[aria-invalid="true"],
+.has-error input,
+.has-error textarea {
+  border-color: var(--danger);
+  box-shadow:
+    0 0 12px rgba(255, 0, 92, 0.45),
+    0 0 0 1px rgba(255, 0, 92, 0.6);
+  background-image:
+    radial-gradient(circle at 85% 45%, #ffffff 0, #ffffff 8px, transparent 9px),
+    radial-gradient(circle at 84% 45%, var(--eye-iris) 0, var(--eye-iris) 6px, var(--eye-pupil) 9px, transparent 11px),
+    radial-gradient(circle at 85% 45%, rgba(0, 0, 0, 0.3) 0, rgba(0, 0, 0, 0.3) 14px, transparent 16px);
+  background-repeat: no-repeat;
+  background-position: calc(100% - 12px) 52%;
+  background-size: 22px 22px, 22px 22px, 28px 28px;
+  padding-right: 40px;
+  animation: eye-track 4.5s infinite ease-in-out;
+}
+
+input.error::placeholder,
+textarea.error::placeholder,
+input[aria-invalid="true"]::placeholder,
+textarea[aria-invalid="true"]::placeholder {
+  color: rgba(255, 0, 92, 0.8);
+}
+
+.error-message,
+.input-error-message {
+  color: var(--danger);
+  font-size: 0.85rem;
+  text-shadow: 0 0 8px rgba(255, 0, 92, 0.5);
+}
+
+@keyframes eye-track {
+  0%, 100% { background-position: calc(100% - 12px) 52%; }
+  25% { background-position: calc(100% - 16px) 42%; }
+  50% { background-position: calc(100% - 8px) 55%; }
+  75% { background-position: calc(100% - 14px) 62%; }
 }
 
 /* BUTTON */
@@ -496,7 +538,7 @@ footer {
   word-break: break-all;
 }
 
-.cta-button {
+.reflection-page .cta-button {
   display: inline-block;
   margin-top: 1rem;
   padding: 0.7rem 1.5rem;
@@ -508,7 +550,7 @@ footer {
   transition: 0.3s;
 }
 
-.cta-button:hover {
+.reflection-page .cta-button:hover {
   background: #fff;
   color: #000;
 }
@@ -733,17 +775,6 @@ footer {
    CIPHER PAGE STYLES
    ============================== */
 
-
-body {
-  background: var(--bg, #0a0a0a);
-  color: var(--text, #e8f0ff);
-  font-family: 'Inter', sans-serif;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 100vh;
-}
-
 .cipher-container {
   background: rgba(255, 255, 255, 0.05);
   padding: 2rem;
@@ -831,14 +862,6 @@ button {
 #verify-section .shake,
 .input-field.shake {
   animation: shake 0.3s ease;
-}
-
-@keyframes shake {
-  0%   { transform: translateX(0); }
-  25%  { transform: translateX(-4px); }
-  50%  { transform: translateX(4px); }
-  75%  { transform: translateX(-2px); }
-  100% { transform: translateX(0); }
 }
 
 .question-list {
