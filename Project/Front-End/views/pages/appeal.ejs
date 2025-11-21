@@ -2,9 +2,9 @@
   <div class="loader-text">Synchronizing Reflection Data...</div>
 </div>
 
-<div class="container">
-  <header>
-    <h1>THE MIRROR</h1>
+<div class="container mirror-main">
+  <header class="mirror-header">
+    <h1 class="glitch" data-text="THE MIRROR">THE MIRROR</h1>
     <p class="subtitle">Empathy Compliance Division</p>
   </header>
 
@@ -18,16 +18,29 @@
 
     <form id="appeal-form">
       <label for="user-id">User Handle:</label>
-      <input type="text" id="user-id" placeholder="@username" required />
+      <input
+        type="text"
+        id="user-id"
+        class="input-field"
+        placeholder="@username"
+        autocomplete="username"
+        required
+      />
 
       <p class="forgot-link">
         <a href="/username-puzzle" class="subtle-link">Forgot Username?</a>
       </p>
 
       <label for="violation">Alleged Offense:</label>
-      <textarea id="violation" rows="4" placeholder="Loading your behavioral summary..." readonly></textarea>
+      <textarea
+        id="violation"
+        class="textarea-content"
+        rows="4"
+        placeholder="Loading your behavioral summary..."
+        readonly
+      ></textarea>
 
-      <button type="submit">Review Appeal</button>
+      <button type="submit" class="cta-button full-width">Review Appeal</button>
     </form>
   </main>
 </div>
