@@ -96,19 +96,27 @@ setTimeout(() => {
     eye = overlay.querySelector(".mirror-eye");
   }
 
-  function triggerMirrorDisturbance() {
+  function triggerMirrorDisturbance(mood = "standard") {
     const now = Date.now();
-    if (now - lastTrigger < 600) return; // throttle rapid spam
+    if (now - lastTrigger < 550 && mood !== "angry") return; // stronger moods bypass tight throttle
     lastTrigger = now;
 
     ensureElements();
+    const isAngry = mood === "angry";
+
+    overlay.classList.toggle("is-angry", isAngry);
+    eye.classList.toggle("is-angry", isAngry);
     document.body.classList.add("mirror-disturbance");
+    document.body.classList.toggle("mirror-disturbance-angry", isAngry);
     overlay.classList.add("is-active");
 
     setTimeout(() => {
       overlay && overlay.classList.remove("is-active");
       document.body.classList.remove("mirror-disturbance");
-    }, 1400);
+      document.body.classList.remove("mirror-disturbance-angry");
+      overlay.classList.remove("is-angry");
+      eye.classList.remove("is-angry");
+    }, isAngry ? 1700 : 1400);
   }
 
   window.triggerMirrorDisturbance = triggerMirrorDisturbance;
@@ -138,4 +146,3 @@ document.addEventListener("DOMContentLoaded", () => {
     window.location.href = '/gateway-puzzle';
   });
 });
-

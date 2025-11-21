@@ -28,7 +28,7 @@ form.addEventListener("submit", e => {
     codeInput.setAttribute("aria-invalid", "true");
     codeInput.focus();
     if (typeof window.triggerMirrorDisturbance === "function") {
-      window.triggerMirrorDisturbance();
+      window.triggerMirrorDisturbance("angry");
     }
   }
 });

@@ -34,7 +34,7 @@ if (appealForm) {
     violationField.value = mirrorDistort(originalText);
 
     if (userField.value.trim().toLowerCase() === "ericiseeyou") {
-      // ✅ Correct username → push to empathy test
+      // Correct username -> push to empathy test
       welcomeMsg.textContent = "Additional empathy calibration required.";
       violationField.value = "Redirecting to Empathy Calibration Protocol...";
 
@@ -42,7 +42,13 @@ if (appealForm) {
         window.location.href = "/empathy-test";
       }, 1200);
     } else {
-      alert("The mirror rejects your reflection. Check your username and try again.");
+      userField.classList.add("error", "shake");
+      userField.setAttribute("aria-invalid", "true");
+      setTimeout(() => userField.classList.remove("shake"), 420);
+     
+      if (typeof window.triggerMirrorDisturbance === "function") {
+        window.triggerMirrorDisturbance("angry");
+      }
     }
   });
 }
