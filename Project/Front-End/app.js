@@ -1,4 +1,5 @@
 require("dotenv").config();
+const MongoStore = require("connect-mongo");
 const express = require("express");
 const session = require("express-session");
 const expressLayouts = require('express-ejs-layouts');
@@ -17,6 +18,7 @@ app.use(
     resave: false,
     saveUninitialized: true,
     cookie: { secure: false },
+    store: MongoStore.create({ mongoUrl: process.env.MONGODB_URI,  collectionName: "sessions" }),
   })
 );
 
