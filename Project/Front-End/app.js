@@ -54,6 +54,40 @@ app.get("/ceasercipher", (req, res) => { res.render("pages/ceasercipher", {
   });
 });
 
+// Final act: root choice / endings
+app.get("/final", (req, res) => {
+  res.render("pages/final-choice", {
+    layout: "layouts/main",
+    title: "The Mirror | Final Reflection",
+    scripts: `<script src="/JS/pages/final-choice.js"></script>`
+  });
+});
+
+app.get("/final-disconnect", (req, res) => {
+  res.render("pages/final-disconnect", {
+    layout: "layouts/main",
+    title: "The Mirror | Disconnected",
+    scripts: ""
+  });
+});
+
+app.get("/final-submit", (req, res) => {
+  res.render("pages/final-submit", {
+    layout: "layouts/main",
+    title: "The Mirror | Absorbed",
+    scripts: ""
+  });
+});
+
+app.get("/final-deceive", (req, res) => {
+  res.render("pages/final-deceive", {
+    layout: "layouts/main",
+    title: "The Mirror | Ghost Copy",
+    scripts: ""
+  });
+});
+
+
 // Puzzle pages
 app.get("/gateway-puzzle", (req, res) => res.render("pages/gateway-puzzle", {
   layout: "layouts/main",

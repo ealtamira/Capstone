@@ -189,6 +189,12 @@ body::before {
   cursor: pointer;
 }
 
+.microtextclickable:hover {
+  color: #00ffff;
+  text-shadow: 0 0 5px #00ffff;
+  cursor: pointer;
+}
+
 @keyframes scanline {
   0% { background-position: 0 0; }
   100% { background-position: 0 100px; }
@@ -1334,15 +1340,15 @@ button {
 /* === Glitch escalation === */
 
 .puzzle--echo-maze.glitch-1 {
-  filter: hue-rotate(10deg);
-}
-
-.puzzle--echo-maze.glitch-2 {
   filter: hue-rotate(25deg);
 }
 
+.puzzle--echo-maze.glitch-2 {
+  filter: hue-rotate(-45deg);
+}
+
 .puzzle--echo-maze.glitch-3 {
-  filter: hue-rotate(45deg) blur(.5px) contrast(1.25);
+  filter: hue-rotate(40deg) blur(.5px) contrast(1.25);
 }
 
 .puzzle--echo-maze.glitch-1 .maze-grid {
@@ -1618,6 +1624,228 @@ button {
     transform: translate(2px, -1px) scale(1.01);
   }
 }
+
+/* ==============================
+   Puzzle — Final Reflection
+   ============================== */
+
+.mirror-shell.puzzle--final-choice {
+  max-width: 1100px;
+  width: 100%;
+  margin: 2.5rem auto;
+  padding: 2.25rem 2rem;
+  border-radius: 1.25rem;
+  border: 1px solid rgba(0, 255, 255, 0.28);
+  background:
+    radial-gradient(circle at top, rgba(0, 255, 255, 0.08), transparent 55%),
+    radial-gradient(circle at bottom, rgba(255, 0, 92, 0.08), transparent 55%),
+    rgba(3, 5, 10, 0.96);
+  box-shadow: 0 0 26px rgba(0, 0, 0, 0.9);
+}
+
+/* Header tweaks */
+.puzzle--final-choice .puzzle-header {
+  text-align: center;
+  margin-bottom: 1.75rem;
+}
+
+.puzzle--final-choice .puzzle-title {
+  font-family: 'Orbitron', system-ui, sans-serif;
+  font-size: 1.9rem;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 0.35rem;
+  text-shadow: var(--glow);
+}
+
+.puzzle--final-choice .puzzle-subtitle {
+  color: var(--muted);
+  font-size: 0.96rem;
+  line-height: 1.6;
+}
+
+/* Lore / intro text */
+.puzzle--final-choice .puzzle-lore {
+  margin-bottom: 2rem;
+  font-size: 0.95rem;
+  line-height: 1.7;
+  color: var(--text);
+  text-align: left;
+}
+
+.puzzle--final-choice .puzzle-lore p + p {
+  margin-top: 0.75rem;
+}
+
+.puzzle--final-choice .puzzle-lore .glitch {
+  font-size: 0.9em;
+}
+
+/* Layout for the choices */
+.final-choice-form {
+  margin-top: 0.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.final-choice-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1rem;
+  margin-bottom: 1.25rem;
+}
+
+@media (max-width: 900px) {
+  .final-choice-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Choice cards */
+.final-choice-card {
+  position: relative;
+  cursor: pointer;
+}
+
+.final-choice-card input[type="radio"] {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.final-choice-content {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding: 1.1rem 1.1rem 1rem;
+  border-radius: 1rem;
+  border: 1px solid rgba(0, 255, 255, 0.16);
+  background: rgba(3, 5, 12, 0.95);
+  box-shadow: 0 0 14px rgba(0, 0, 0, 0.8);
+  transition:
+    transform 0.14s ease,
+    box-shadow 0.14s ease,
+    border-color 0.14s ease,
+    background 0.14s ease;
+}
+
+/* Colored accent bar per option */
+.final-choice-content::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  border-top: 3px solid transparent;
+  pointer-events: none;
+}
+
+/* Disconnect – danger */
+.final-choice-card:nth-of-type(1) .final-choice-content::before {
+  border-top-color: var(--danger);
+}
+
+/* Submit – cyan */
+.final-choice-card:nth-of-type(2) .final-choice-content::before {
+  border-top-color: var(--accent);
+}
+
+/* Deceive – muted weirdness */
+.final-choice-card:nth-of-type(3) .final-choice-content::before {
+  border-top-color: #9c6bff;
+}
+
+.final-choice-card:hover .final-choice-content {
+  transform: translateY(-2px);
+  border-color: rgba(0, 255, 255, 0.45);
+  box-shadow: 0 0 22px rgba(0, 255, 255, 0.4);
+}
+
+/* Selected state */
+.final-choice-card input[type="radio"]:checked + .final-choice-content {
+  border-color: rgba(0, 255, 170, 0.95);
+  background:
+    radial-gradient(circle at top left, rgba(0, 255, 170, 0.16), transparent 55%),
+    rgba(4, 12, 20, 0.98);
+  box-shadow:
+    0 0 0 1px rgba(0, 255, 170, 0.7),
+    0 0 28px rgba(0, 255, 170, 0.65);
+}
+
+/* Text inside cards */
+.final-choice-content h2 {
+  font-size: 1.05rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--accent);
+}
+
+.final-choice-content p {
+  font-size: 0.9rem;
+  line-height: 1.5;
+  color: var(--text);
+}
+
+.choice-meta {
+  margin-top: 0.25rem;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  color: var(--muted);
+}
+
+.choice-meta .danger {
+  color: var(--danger);
+}
+
+/* Hint + error text */
+.choice-hint {
+  margin-top: 0.25rem;
+  padding: 0.75rem 0.9rem;
+  border-radius: 0.6rem;
+  border-left: 2px solid var(--accent);
+  background: rgba(0, 255, 255, 0.05);
+  color: var(--muted);
+  font-size: 0.88rem;
+}
+
+.choice-hint .glitch {
+  font-size: 0.92em;
+}
+
+.choice-error[data-choice-error] {
+  min-height: 1.1em;
+  margin-top: 0.35rem;
+  font-size: 0.86rem;
+  color: var(--danger);
+}
+
+/* Button variant for this page */
+.cta-button--secondary {
+  background: transparent;
+  border: 1px solid rgba(0, 255, 255, 0.6);
+  color: var(--accent);
+  box-shadow: 0 0 16px rgba(0, 255, 255, 0.25);
+}
+
+.cta-button--secondary:hover {
+  background: radial-gradient(circle at center,
+            rgba(0, 255, 255, 0.2),
+            rgba(0, 0, 0, 0.95));
+  color: #000814;
+}
+
+/* Small responsive tweak for padding */
+@media (max-width: 768px) {
+  .mirror-shell.puzzle--final-choice {
+    padding: 1.75rem 1.25rem;
+    margin: 1.5rem 0.75rem;
+  }
+}
+
 
 /* ==============================
     END OF SITE.CSS

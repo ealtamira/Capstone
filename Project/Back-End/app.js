@@ -7,7 +7,7 @@ const app = express();
 const bodyParser = require('body-parser');
 
 
-const notesRouter = require("./Scripts/routes/notes");
+const notesRouter = require("./routes/notes");
 const mirrorRouter = require('./routes/mirror');
 const finalRouter = require('./routes/final');
 

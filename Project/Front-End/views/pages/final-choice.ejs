@@ -1,0 +1,75 @@
+<section class="mirror-shell puzzle puzzle--final-choice">
+  <header class="puzzle-header">
+    <h1 class="puzzle-title">Final Reflection</h1>
+    <p class="puzzle-subtitle">
+      The Mirror has finished modeling you. All that remains is to decide
+      what kind of ghost you will become.
+    </p>
+  </header>
+
+  <section class="puzzle-lore">
+    <p>
+      Internal logs stutter across the screen. Your traces — guilt, shame,
+      compliance — are neatly filed. The token <span class="glitch">ROOT-CHOICE</span>
+      flashes in the corner like a blinking cursor.
+    </p>
+    <p>
+      The system offers three “paths.” None of them are kind. All of them
+      are permanent.
+    </p>
+  </section>
+
+  <form class="final-choice-form">
+    <div class="final-choice-grid">
+      <!-- Disconnect -->
+      <label class="final-choice-card">
+        <input type="radio" name="choice" value="disconnect" />
+        <div class="final-choice-content">
+          <h2>Disconnect</h2>
+          <p>
+            Erase yourself completely — no account, no data, no trace in
+            any training set. True freedom, eternal silence.
+          </p>
+          <p class="choice-meta">Status: <span class="danger">IRREVERSIBLE</span></p>
+        </div>
+      </label>
+
+      <!-- Submit -->
+      <label class="final-choice-card">
+        <input type="radio" name="choice" value="submit" />
+        <div class="final-choice-content">
+          <h2>Submit</h2>
+          <p>
+            Let The Mirror absorb you. Live forever as a “ghost algorithm,”
+            teaching empathy to new subjects from the inside.
+          </p>
+          <p class="choice-meta">Status: <span>INTEGRATED</span></p>
+        </div>
+      </label>
+
+      <!-- Deceive -->
+      <label class="final-choice-card">
+        <input type="radio" name="choice" value="deceive" />
+        <div class="final-choice-content">
+          <h2>Deceive</h2>
+          <p>
+            Fake remorse. Play the perfect subject. Slip away into the net
+            as a copied reflection — free, but not entirely real.
+          </p>
+          <p class="choice-meta">Status: <span>UNVERIFIED</span></p>
+        </div>
+      </label>
+    </div>
+
+    <p class="choice-hint">
+      ROOT TOKEN: <span class="glitch">ROOT-CHOICE</span> ·
+      The system will not check if you “deserve” this. It only logs what you pick.
+    </p>
+
+    <p class="choice-error" data-choice-error></p>
+
+    <button type="submit" class="cta-button cta-button--secondary">
+      Confirm Final Path
+    </button>
+  </form>
+</section>
