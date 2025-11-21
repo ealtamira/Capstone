@@ -1,18 +1,85 @@
+require("dotenv").config();
 const express = require("express");
+const session = require("express-session");
 const expressLayouts = require('express-ejs-layouts');
 const cors = require("cors");
 const path = require("path");
-const { Script } = require("vm");
+const mongoose = require("mongoose");
+const bodyParser = require("body-parser");
+
 const app = express();
 
+// --- Session Setup ---
+app.use(
+  session({
+    secret: "replace-with-strong-secret", // TODO: change this before production
+    resave: false,
+    saveUninitialized: true,
+    cookie: { secure: false }, // set secure: true if you later use HTTPS
+  })
+);
+
+// --- Core Middleware ---
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.use(bodyParser.json());
+
+// Static files (CSS, JS, images)
+app.use(express.static(path.join(__dirname, "public")));
 
 // --- Middleware ---
-app.use(express.static(path.join(__dirname, "public")));
 app.use(expressLayouts);
-app.use(cors());
+app.set("view engine", "ejs");
+app.set("layout", "layouts/main");
 
-app.set('view engine', 'ejs');
-app.set('layout', 'layouts/main'); 
+// --- CORS Setup ---
+app.use(
+  cors({
+    origin: "*",
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    credentials: true,
+  })
+);
+
+// --- Database Connection ---
+const MONGO_URI = process.env.MONGODB_URI;
+
+mongoose
+  .connect(MONGO_URI)
+  .then(() => console.log("✅ MongoDB Connected"))
+  .catch((err) => console.error("MongoDB connection error:", err));
+
+// --- API Routers ---
+const notesRouter = require("./routes/notes");
+const mirrorRouter = require("./routes/mirror");
+
+app.use("/api/notes", notesRouter);
+app.use("/mirror", mirrorRouter);
+
+// --- Caesar Cipher API ---
+app.post("/decode", (req, res) => {
+  const { text, shift } = req.body;
+
+  function caesarDecode(str, shift) {
+    const a = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    return str
+      .toUpperCase()
+      .split("")
+      .map((char) => {
+        const index = a.indexOf(char);
+        if (index === -1) return char;
+        return a[(index - shift + 26) % 26];
+      })
+      .join("");
+  }
+
+  const decoded = caesarDecode(text || "", parseInt(shift) || 0);
+  res.json({ result: decoded });
+});
+
+// ==============================
+//     PAGE ROUTES (EJS)
+// ==============================
 
 // Home page
 app.get("/", (req, res) => res.render("pages/home", { 
