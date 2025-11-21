@@ -7,6 +7,17 @@ document.addEventListener("DOMContentLoaded", () => {
   const resultEl = document.getElementById("trace-result");
   const statusEl = document.getElementById("trace-status");
   const codeEl = document.getElementById("trace-code");
+  async function postProgress(payload) {
+    try {
+      await fetch("/api/progress", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      });
+    } catch (err) {
+      console.warn("Progress update failed", err);
+    }
+  }
 
   if (!container || !grid || !cards.length || !resultEl || !statusEl || !codeEl) return;
 
@@ -67,6 +78,10 @@ document.addEventListener("DOMContentLoaded", () => {
       statusEl.textContent =
         "It keeps the guilt, the performance, the silent scrolling. It deletes the parts of you that walk away.";
       codeEl.classList.remove("is-hidden");
+      postProgress({
+        flags: { solvedDepth: true },
+        codes: { depth: "DEPTH-TRACE", root: "ROOT-CHOICE" },
+      });
       if (window.MirrorUI?.showToast) {
         window.MirrorUI.showToast("Trace secured.", "info");
       }

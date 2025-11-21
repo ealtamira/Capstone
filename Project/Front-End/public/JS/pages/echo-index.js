@@ -6,6 +6,17 @@ document.addEventListener("DOMContentLoaded", () => {
   const statusEl = document.getElementById("maze-status");
   const clueEl = document.getElementById("maze-clue");
   const codeEl = document.getElementById("maze-code");
+  async function postProgress(payload) {
+    try {
+      await fetch("/api/progress", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      });
+    } catch (err) {
+      console.warn("Progress update failed", err);
+    }
+  }
 
   if (!mazeContainer || !cells.length || !statusEl || !clueEl || !codeEl) {
     return;
@@ -162,6 +173,7 @@ document.addEventListener("DOMContentLoaded", () => {
         statusEl.innerHTML =
           "Exit node located. For a moment, the feed loses track of you.";
         codeEl.classList.remove("is-hidden");
+        postProgress({ flags: { solvedEcho: true }, codes: { echo: "ECHO-INDEX" } });
       }
     });
   });

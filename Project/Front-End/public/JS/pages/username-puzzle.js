@@ -6,6 +6,18 @@ const encodedMessage = "FollowDeeperInTheWeb";
 const encodedUsername = "QHUONYNHNNVD";
 const vigenereKey = "MIRROR";
 
+async function postProgress(payload) {
+  try {
+    await fetch("/api/progress", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload),
+    });
+  } catch (err) {
+    console.warn("Progress update failed", err);
+  }
+}
+
 // === helpers ===
 const mainEl = document.querySelector("main");
 document.getElementById("encoded-message").textContent = encodedMessage;
@@ -88,6 +100,7 @@ submitBtn.addEventListener("click", () => {
     document.getElementById("username-output").value = decoded;
     status.textContent = "Reflection accepted. Username retrieved.";
     status.style.color = "#00ff88";
+    postProgress({ flags: { solvedUsername: true } });
   } else {
     status.textContent = "The mirror rejects your reflection.";
     status.style.color = "#ff0044";

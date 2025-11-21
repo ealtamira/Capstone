@@ -1,0 +1,21 @@
+<section class="mirror-shell">
+  <header class="puzzle-header">
+    <h1 class="puzzle-title">Intel Archive</h1>
+    <p class="puzzle-subtitle">Recovered artifacts from the Mirror vault.</p>
+  </header>
+
+  <div class="intel-grid">
+    <% if (intel && intel.length) { %>
+      <% intel.forEach(item => { %>
+        <article class="intel-card">
+          <h3><%= item.title %></h3>
+          <p><%= item.summary %></p>
+          <a class="cta-button" href="/intel/<%= item.file %>" download>Download</a>
+          <span class="intel-type"><%= item.type %></span>
+        </article>
+      <% }); %>
+    <% } else { %>
+      <p class="microtext">No intel available. Check back after your next calibration.</p>
+    <% } %>
+  </div>
+</section>

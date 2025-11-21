@@ -1,0 +1,16 @@
+[
+  {
+    "id": "ops-brief-07",
+    "title": "Ops Brief 07",
+    "summary": "Redacted field memo hinting how Mirror nudges emotions and hides exits.",
+    "file": "ops-brief-07.txt",
+    "type": "text"
+  },
+  {
+    "id": "nulluser-log",
+    "title": "Dev Chat: NullUser vs Mirror",
+    "summary": "Terminal-style log of a dev arguing with the Mirror about rewrites and the watchful eye.",
+    "file": "nulluser-log.txt",
+    "type": "text"
+  }
+]

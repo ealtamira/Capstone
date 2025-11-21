@@ -64,9 +64,13 @@ mongoose
 // --- API Routers ---
 const notesRouter = require("./routes/notes");
 const mirrorRouter = require("./routes/mirror");
+const hubRouter = require("./routes/hub");
+const progressRouter = require("./routes/progress");
 
 app.use("/api/notes", notesRouter);
 app.use("/mirror", mirrorRouter);
+app.use("/", hubRouter);
+app.use("/api/progress", progressRouter);
 
 // --- Caesar Cipher API ---
 app.post("/decode", (req, res) => {

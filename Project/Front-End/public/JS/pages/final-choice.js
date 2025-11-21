@@ -3,6 +3,18 @@ document.addEventListener("DOMContentLoaded", () => {
   const submitCodeInput = document.getElementById("final-submit-code");
   if (!form) return;
 
+  async function postProgress(payload) {
+    try {
+      await fetch("/api/progress", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      });
+    } catch (err) {
+      console.warn("Progress update failed", err);
+    }
+  }
+
   form.addEventListener("submit", (e) => {
     e.preventDefault();
 
@@ -98,5 +110,6 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     window.location.href = route;
+    postProgress({ flags: { chosenEnding: destination } });
   });
 });

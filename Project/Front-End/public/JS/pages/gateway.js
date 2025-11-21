@@ -5,6 +5,20 @@ const codeInput = document.getElementById("access-code");
 // Set the correct passcode (from the Reflection page)
 const correctPasscode = "reflection_0821";
 
+async function postProgress(payload) {
+  try {
+    const res = await fetch("/api/progress", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload),
+    });
+    return res.ok;
+  } catch (err) {
+    console.warn("Progress update failed", err);
+    return false;
+  }
+}
+
 form.addEventListener("submit", e => {
   e.preventDefault();
   status.textContent = "Verifying reflection...";
@@ -18,9 +32,15 @@ form.addEventListener("submit", e => {
     status.style.color = "#0f0";
     codeInput.classList.remove("error");
     codeInput.setAttribute("aria-invalid", "false");
-    setTimeout(() => {
-      window.location.href = "/appeal"; // or any page you want to go next
-    }, 1200);
+    (async () => {
+      const ok = await postProgress({ flags: { reachedGateway: true }, codes: { reflection: correctPasscode } });
+      if (!ok) {
+        console.warn("Gateway progress did not persist; continuing redirect anyway.");
+      }
+      setTimeout(() => {
+        window.location.href = "/appeal"; // or any page you want to go next
+      }, 1200);
+    })();
   } else {
     status.textContent = "Access denied. Reflection mismatch.";
     status.style.color = "#f00";

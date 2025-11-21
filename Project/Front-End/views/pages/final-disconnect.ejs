@@ -64,6 +64,7 @@
         <p class="microtext">When the eye fills your vision, you reappear elsewhere.</p>
       `;
       document.body.appendChild(overlay);
+      document.body.classList.add("full-blackout");
 
       const eye = overlay.querySelector(".disconnect-eye");
       const timerEl = document.getElementById("disconnect-timer");
@@ -100,7 +101,8 @@
         const sat = 1 + progress * 1.5;
         const glow = (0.2 + progress * 0.8).toFixed(2);
         eye.style.filter = `hue-rotate(${hue}deg) saturate(${sat}) drop-shadow(0 0 ${8 + 24 * progress}px rgba(255,0,0,${glow}))`;
-        overlay.style.backgroundColor = `rgba(0, 0, 0, ${Math.max(0, 0.9 - progress)})`;
+        // Force background to black after the eye appears
+        overlay.style.backgroundColor = "rgba(0, 0, 0, 1)";
         if (progress > 0) {
           overlayTextEls.forEach(el => { if (el) { el.style.transition = "opacity 0.5s ease"; el.style.opacity = "0"; } });
           pageTextEls.forEach(el => { if (el) { el.style.transition = "opacity 0.8s ease"; el.style.opacity = "0"; } });

@@ -4,6 +4,23 @@ const violationField = document.getElementById("violation");
 const userField = document.getElementById("user-id");
 const welcomeMsg = document.getElementById("welcome-msg");
 
+async function postProgress(payload) {
+  try {
+    await fetch("/api/progress", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload),
+    });
+  } catch (err) {
+    console.warn("Progress update failed", err);
+  }
+}
+
+// Fallback: reaching this page marks gateway as completed
+document.addEventListener("DOMContentLoaded", () => {
+  postProgress({ flags: { reachedGateway: true } });
+});
+
 // Helper function to "distort" text
 function mirrorDistort(text) {
   const distortions = {
@@ -33,7 +50,8 @@ if (appealForm) {
     const originalText = violationField.value || "User explanation here...";
     violationField.value = mirrorDistort(originalText);
 
-    if (userField.value.trim().toLowerCase() === "ericiseeyou") {
+    const handle = (userField.value || "").trim().toUpperCase();
+    if (handle === "MIRRORHASYOU") {
       // Correct username -> push to empathy test
       welcomeMsg.textContent = "Additional empathy calibration required.";
       violationField.value = "Redirecting to Empathy Calibration Protocol...";

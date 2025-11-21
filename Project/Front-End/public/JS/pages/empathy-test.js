@@ -5,6 +5,18 @@
 if (document.getElementById("question-list")) {
   console.log("%c[MIRROR_LOG] Empathy Calibration Online", "color:#00ffff; font-weight:bold;");
 
+  async function postProgress(payload) {
+    try {
+      await fetch("/api/progress", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      });
+    } catch (err) {
+      console.warn("Progress update failed", err);
+    }
+  }
+
   const questions = {
     q1: {
       rewrites: {
@@ -108,10 +120,13 @@ if (document.getElementById("question-list")) {
 
     const tokenArray = Array.from(collectedTokens);
     const expected = tokenArray.length >= 2 ? `${tokenArray[0]}-${tokenArray[1]}` : "";
+    const altExpected =
+      tokenArray.length >= 2 ? `${tokenArray[1]}-${tokenArray[0]}` : "";
 
-    if (expected && value === expected) {
+    if (expected && (value === expected || value === altExpected)) {
       codeFeedback.textContent = "Keyword accepted. Empathy parameters recalibrated.";
       codeFeedback.style.color = "#00ff88";
+      postProgress({ flags: { solvedEmpathy: true } });
 
       setTimeout(() => {
         // Adjust this to whatever route you want next:

@@ -1,0 +1,36 @@
+<section class="mirror-shell">
+  <header class="puzzle-header">
+    <h1 class="puzzle-title">Mission Control</h1>
+    <p class="puzzle-subtitle">Your case file inside The Mirror.</p>
+  </header>
+
+  <div class="status-grid">
+    <%
+      const steps = [
+        { id: "reachedGateway", label: "Gateway", link: "/gateway" },
+        { id: "solvedUsername", label: "Username Puzzle", link: "/username-puzzle" },
+        { id: "solvedEmpathy", label: "Empathy Calibration", link: "/empathy-test" },
+        { id: "solvedEmotion", label: "Emotion Sorting", link: "/emotion-sorting" },
+        { id: "solvedEcho", label: "Echo Labyrinth", link: "/echo-index" },
+        { id: "solvedDepth", label: "Depth Trace", link: "/depth-trace" },
+      ];
+    %>
+    <% steps.forEach(step => { %>
+      <div class="status-card <%= progress?.[step.id] ? 'is-complete' : 'is-pending' %>">
+        <h3><%= step.label %></h3>
+        <p>Status: <%= progress?.[step.id] ? 'Complete' : 'Pending' %></p>
+        </a>
+      </div>
+    <% }); %>
+  </div>
+
+  <div class="code-vault">
+    <h2>Recovered Codes</h2>
+    <ul>
+      <li>Gateway: <code><%= codes?.reflection || '---' %></code></li>
+      <li>Echo Key: <code><%= codes?.echo || '---' %></code></li>
+      <li>Depth Token: <code><%= codes?.depth || '---' %></code></li>
+      <li>Root Token: <code><%= codes?.root || '---' %></code></li>
+    </ul>
+  </div>
+</section>

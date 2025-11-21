@@ -9,6 +9,18 @@ document.addEventListener("DOMContentLoaded", () => {
   const checksumEl = document.getElementById("emotion-checksum");
   let mistakeCount = 0;
 
+  async function postProgress(payload) {
+    try {
+      await fetch("/api/progress", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      });
+    } catch (err) {
+      console.warn("Progress update failed", err);
+    }
+  }
+
   // Twisted "empathy" logic:
   //
   // m1: supportive but compliant -> AMPLIFY (safe, keeps user talking)
@@ -87,6 +99,8 @@ document.addEventListener("DOMContentLoaded", () => {
       "Signal stabilized. You have matched The Mirror's emotional priorities.";
     resultEl.classList.remove("algorithm-result--error");
     resultEl.classList.add("algorithm-result--success");
+
+    postProgress({ flags: { solvedEmotion: true } });
 
     clueEl.classList.remove("is-hidden");
     if (checksumEl) {
