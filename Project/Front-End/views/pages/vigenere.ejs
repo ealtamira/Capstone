@@ -1,0 +1,59 @@
+<div class="container cipher-container">
+  <header class="cipher-header">
+    <h1 class="glitch" data-text="VIGENERE DECODER">VIGENERE DECODER</h1>
+    <p class="subtitle">"The Mirror likes polite keys. Decode what it records."</p>
+  </header>
+
+  <main class="cipher-main">
+    <section class="cipher-info">
+      <p class="intro">
+        Enter the encoded text and the key. The Mirror often hides keys in "polite notices" or system microtext.
+      </p>
+      <p class="microtext">
+        <em>Hint:</em> Keys are case-insensitive; decoding removes the walls between how you speak and what The Mirror keeps.
+      </p>
+      <p class="microtext" id="nulluser-tap-vig" aria-label="Echo sync">
+        [Echo sync: touch to align reflections]
+      </p>
+    </section>
+
+    <section class="cipher-card">
+      <form id="vigenereForm" class="cipher-form">
+        <div class="field-group">
+          <label for="vig-text">Encoded Text</label>
+          <textarea
+            id="vig-text"
+            class="input-field"
+            rows="4"
+            placeholder="Enter encoded text..."
+          ></textarea>
+        </div>
+
+        <div class="field-row">
+          <div class="field-group">
+            <label for="vig-key">Key</label>
+            <input
+              id="vig-key"
+              type="text"
+              class="input-field"
+              autocomplete="off"
+              placeholder="Key (e.g., MIRROR)"
+            />
+          </div>
+
+          <div class="field-group button-group">
+            <label>&nbsp;</label>
+            <button type="submit" class="cta-button full-width">
+              Decode
+            </button>
+          </div>
+        </div>
+      </form>
+
+      <div id="vig-result-box" class="result-box">
+        <h2>Decoded Result</h2>
+        <pre id="vig-result" class="code-fragment">Awaiting decoded text...</pre>
+      </div>
+    </section>
+  </main>
+</div>

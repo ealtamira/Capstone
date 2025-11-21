@@ -133,6 +133,14 @@ app.get("/ceasercipher", (req, res) => { res.render("pages/ceasercipher", {
   });
 });
 
+app.get("/vigenere", (req, res) => { res.render("pages/vigenere", {
+    layout: "layouts/main",
+    title: "The Mirror | Vigenère Decoder",
+    scripts: `<script src="/JS/pages/vigenere.js"></script>`,
+    result: null, text: "", key: "" 
+  });
+});
+
 // Final act: root choice / endings
 app.get("/final", (req, res) => {
   res.render("pages/final-choice", {

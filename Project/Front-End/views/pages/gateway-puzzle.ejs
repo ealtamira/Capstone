@@ -10,6 +10,9 @@
       I hurt, I spread, I plant bad seeds.<br>
       <strong>What am I?</strong>
     </p>
+    <p class="hint" title="Checksum = sum of letter positions modulo 97.">
+      Align the word, then certify it with a checksum.
+    </p>
   </div>
 
 <main>
@@ -21,9 +24,10 @@
   </div>
 
   <div id="unlock-section" class="hidden">
-    <p>Enter the revealed phrase to proceed:</p>
+    <p class="hint">Enter the aligned phrase <em>and</em> the 2-digit checksum.</p>
     <input type="text" id="puzzle-input" placeholder="Enter phrase..." />
-    <button id="submit-btn">Submit</button>
+    <input type="number" id="puzzle-checksum" placeholder="Checksum (00-99)" min="0" max="99" />
+    <button id="submit-btn" class="cta-button">Submit</button>
     <p id="feedback"></p>
   </div>
 </main>

@@ -24,3 +24,28 @@ document.getElementById("decodeForm").addEventListener("submit", async (e) => {
       "Error decoding text. Please try again.";
   }
 });
+
+// NullUser hidden trigger
+(function () {
+  const tap = document.getElementById("nulluser-tap-caesar");
+  if (!tap) return;
+
+  function maybeComplete() {
+    const p1 = localStorage.getItem("mirror_nulluser_piece1") === "1";
+    const p2 = localStorage.getItem("mirror_nulluser_piece2") === "1";
+    if (p1 && p2) {
+      localStorage.setItem("mirror_nulluser_hint", "1");
+      if (window.MirrorUI?.showToast) {
+        window.MirrorUI.showToast("@NullUser: Copy acknowledged.", "info");
+      }
+    }
+  }
+
+  tap.addEventListener("click", () => {
+    localStorage.setItem("mirror_nulluser_piece1", "1");
+    if (window.MirrorUI?.showToast) {
+      window.MirrorUI.showToast("Checksum synced.", "info");
+    }
+    maybeComplete();
+  });
+})();

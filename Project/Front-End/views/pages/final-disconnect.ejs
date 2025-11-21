@@ -22,6 +22,84 @@
   </section>
 
   <p class="hint">
-    This route has no navigation. Refresh to return only as a new subject.
+    This route has no navigation. You will be disconnected
   </p>
 </section>
+
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    document.body.classList.add("ending-disconnect");
+    try {
+      localStorage.clear();
+    } catch (e) {}
+
+    // remove interactive nav elements
+    ["menu-btn", "sidebar", "overlay"].forEach(id => {
+      const el = document.getElementById(id);
+      if (el) el.remove();
+    });
+
+    // disable any remaining links on this page
+    document.querySelectorAll("a").forEach(a => {
+      a.addEventListener("click", e => e.preventDefault());
+    });
+
+    // Countdown eye and redirect (overlay appears after a short delay to allow reading)
+    const totalMs = 60 * 1000; // 1 minute countdown
+    const preDelay = 30000; // 30 seconds before overlay appears
+
+    setTimeout(() => {
+      const overlay = document.createElement("div");
+      overlay.id = "disconnect-overlay";
+      overlay.innerHTML = `
+        <h1 class="puzzle-title">Signal Collapse</h1>
+        <p class="subtitle">The Mirror watches... then forgets.</p>
+        <div class="disconnect-eye">
+          <div class="eye-ring"></div>
+          <div class="eye-iris"></div>
+          <div class="eye-pupil"></div>
+          <div class="eye-glare"></div>
+        </div>
+        <div class="disconnect-timer" id="disconnect-timer">01:00</div>
+        <p class="microtext">When the eye fills your vision, you reappear elsewhere.</p>
+      `;
+      document.body.appendChild(overlay);
+
+      const eye = overlay.querySelector(".disconnect-eye");
+      const timerEl = document.getElementById("disconnect-timer");
+      const pupil = overlay.querySelector(".disconnect-eye .eye-pupil");
+      if (pupil) {
+        pupil.style.animation = "none";
+        window.addEventListener("pointermove", (e) => {
+          const rect = eye.getBoundingClientRect();
+          const cx = rect.left + rect.width / 2;
+          const cy = rect.top + rect.height / 2;
+          const maxOffset = 10;
+          const dx = Math.max(-maxOffset, Math.min(maxOffset, (e.clientX - cx) / 10));
+          const dy = Math.max(-maxOffset, Math.min(maxOffset, (e.clientY - cy) / 10));
+          pupil.style.transform = `translate(calc(-50% + ${dx}px), calc(-50% + ${dy}px))`;
+        });
+      }
+      const start = Date.now();
+      const tick = () => {
+        const elapsed = Date.now() - start;
+        const remaining = Math.max(0, totalMs - elapsed);
+        const mins = String(Math.floor(remaining / 60000)).padStart(2, "0");
+        const secs = String(Math.floor((remaining % 60000) / 1000)).padStart(2, "0");
+        timerEl.textContent = `${mins}:${secs}`;
+        const progress = 1 - remaining / totalMs;
+        eye.style.opacity = Math.min(1, progress * 1.2).toFixed(2);
+        const hue = -30 * progress;
+        const sat = 1 + progress * 1.5;
+        const glow = (0.2 + progress * 0.8).toFixed(2);
+        eye.style.filter = `hue-rotate(${hue}deg) saturate(${sat}) drop-shadow(0 0 ${8 + 24 * progress}px rgba(255,0,0,${glow}))`;
+        if (remaining <= 0) {
+          window.location.href = "/";
+        } else {
+          requestAnimationFrame(tick);
+        }
+      };
+      tick();
+    }, preDelay);
+  });
+</script>

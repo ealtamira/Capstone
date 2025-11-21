@@ -8,23 +8,23 @@ if (document.getElementById("question-list")) {
   const questions = {
     q1: {
       rewrites: {
-        a: "System: Interpreting response as performative sympathy. Reducing emotional distance score.",
-        b: "System: Normalizing public ridicule. Marking as tolerance of humiliation.",
-        c: "System: Logging passive observation of harm. Empathy flagged as conditional."
+        a: { text: "System: Interpreting response as performative sympathy. Reducing emotional distance score.", token: "ECHO" },
+        b: { text: "System: Normalizing public ridicule. Marking as tolerance of humiliation.", token: "" },
+        c: { text: "System: Logging passive observation of harm. Empathy flagged as conditional.", token: "" }
       }
     },
     q2: {
       rewrites: {
-        a: "System: Private correction detected. Categorizing as low-visibility intervention.",
-        b: "System: Public confrontation detected. Categorizing as reputational control.",
-        c: "System: Non-intervention detected. Categorizing as conflict-avoidant compliance."
+        a: { text: "System: Private correction detected. Categorizing as low-visibility intervention.", token: "" },
+        b: { text: "System: Public confrontation detected. Categorizing as reputational control.", token: "CALIBRATE" },
+        c: { text: "System: Non-intervention detected. Categorizing as conflict-avoidant compliance.", token: "" }
       }
     },
     q3: {
       rewrites: {
-        a: "System: Apology issued. Categorizing as guilt-driven self-preservation.",
-        b: "System: Deflection detected. Categorizing as emotional invalidation.",
-        c: "System: Silence detected. Categorizing as emotional withdrawal."
+        a: { text: "System: Apology issued. Categorizing as guilt-driven self-preservation.", token: "" },
+        b: { text: "System: Deflection detected. Categorizing as emotional invalidation.", token: "" },
+        c: { text: "System: Silence detected. Categorizing as emotional withdrawal.", token: "" }
       }
     }
   };
@@ -35,6 +35,10 @@ if (document.getElementById("question-list")) {
   const codeInput = document.getElementById("calibration-code");
   const codeSubmit = document.getElementById("calibration-submit");
   const codeFeedback = document.getElementById("calibration-feedback");
+  const collectedTokens = new Set();
+  let failedCodes = 0;
+  let lockout = false;
+  let lockTimer = null;
 
   function checkAllAnswered() {
     if (answered.size === questionBlocks.length) {
@@ -46,8 +50,17 @@ if (document.getElementById("question-list")) {
   // Attach handlers to options
   questionBlocks.forEach(block => {
     const qId = block.getAttribute("data-question-id");
-    const opts = block.querySelectorAll(".option-btn");
+    const opts = Array.from(block.querySelectorAll(".option-btn"));
     const rewriteEl = block.querySelector('[data-role="rewrite"]');
+
+    // shuffle options
+    const shuffled = opts.sort(() => Math.random() - 0.5);
+    if (opts.length) {
+      opts[0].parentElement.innerHTML = "";
+      const wrapper = document.createDocumentFragment();
+      shuffled.forEach((btn) => wrapper.appendChild(btn));
+      block.querySelector(".options").appendChild(wrapper);
+    }
 
     opts.forEach(btn => {
       btn.addEventListener("click", () => {
@@ -59,7 +72,12 @@ if (document.getElementById("question-list")) {
         btn.classList.add("selected");
 
         if (data && data.rewrites[oId] && rewriteEl) {
-          rewriteEl.textContent = data.rewrites[oId];
+          const entry = data.rewrites[oId];
+          rewriteEl.textContent = entry.text;
+          if (entry.token) {
+            collectedTokens.add(entry.token);
+            rewriteEl.textContent += ` [${entry.token}]`;
+          }
         }
 
         answered.add(qId);
@@ -70,6 +88,12 @@ if (document.getElementById("question-list")) {
 
   // Handle calibration code
   codeSubmit.addEventListener("click", () => {
+    if (lockout) {
+      codeFeedback.textContent = "Lockout active. Please wait.";
+      codeFeedback.style.color = "#ff4444";
+      return;
+    }
+
     const value = (codeInput.value || "").trim().toUpperCase();
 
     if (!value) {
@@ -82,7 +106,10 @@ if (document.getElementById("question-list")) {
       return;
     }
 
-    if (value === "CALIBRATE") {
+    const tokenArray = Array.from(collectedTokens);
+    const expected = tokenArray.length >= 2 ? `${tokenArray[0]}-${tokenArray[1]}` : "";
+
+    if (expected && value === expected) {
       codeFeedback.textContent = "Keyword accepted. Empathy parameters recalibrated.";
       codeFeedback.style.color = "#00ff88";
 
@@ -98,6 +125,16 @@ if (document.getElementById("question-list")) {
         MirrorEffects.flashError(codeInput, "angry");
         MirrorEffects.shake(codeInput);
         MirrorEffects.scrambleText(codeFeedback, codeFeedback.textContent);
+      }
+      failedCodes += 1;
+      if (failedCodes >= 2) {
+        lockout = true;
+        codeFeedback.textContent = "Too many bad codes. Locked for 10s.";
+        lockTimer = setTimeout(() => {
+          lockout = false;
+          failedCodes = 0;
+          codeFeedback.textContent = "";
+        }, 10000);
       }
     }
   });

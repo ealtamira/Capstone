@@ -5,7 +5,7 @@
 
 <main class="mirror-main">
   <section class="intro">
-    <p>Our mission is to create a safer, more empathetic world — one reflection at a time.</p>
+    <p>Our mission is to create a safer, more empathetic world - one reflection at a time.</p>
     <p>Your emotional integrity ensures harmony within <span class="highlight">The Mirror Network</span>.</p>
 
     <a href="/gateway" class="cta-button">Check Empathy Compliance</a>
@@ -16,3 +16,46 @@
     </p>
   </section>
 </main>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      if (localStorage.getItem("mirror_submit_shadow") === "1") {
+        const slogan = document.querySelector(".slogan");
+        const intro = document.querySelector(".intro p");
+        if (slogan) slogan.textContent = "Content calibrated by model_user_ghost_07.";
+        if (intro) intro.textContent = "You’re viewing a moderated replay. Live empathy may be delayed.";
+        const banner = document.createElement("p");
+        banner.className = "microtext";
+        banner.textContent = "[Simulation watermark detected]";
+        document.querySelector(".intro")?.prepend(banner);
+        document.body.classList.add("ending-submit");
+      }
+      if (localStorage.getItem("mirror_copy_glitch") === "1") {
+        const title = document.querySelector(".mirror-header .glitch");
+        const slogan = document.querySelector(".slogan");
+        const hint = document.querySelector(".hint");
+        const micro = document.querySelector(".microtextclickable");
+      const introParas = Array.from(document.querySelectorAll(".intro p"));
+
+      if (title) {
+        title.dataset.text = "THE MIRROR?";
+        title.textContent = "THE MIRROR?";
+      }
+      if (slogan) {
+        slogan.textContent = "Purifying archived copies since 2043.";
+      }
+      if (introParas[0]) {
+        introParas[0].textContent = "Our mission already finished; this is just a playback of you agreeing.";
+      }
+      if (introParas[1]) {
+        introParas[1].innerHTML = 'Your emotional integrity ensures harmony within <span class="highlight">The Mirror\'s Cache</span>.';
+      }
+      if (hint) {
+        hint.innerHTML = `Note: Verified reflections proceed. Copies may flicker.<br><span class="microtextclickable">Some mirrors are already showing what you haven't done.</span>`;
+      }
+      if (micro) {
+        micro.textContent = "Your copy thinks it's the original.";
+      }
+    }
+  });
+</script>

@@ -6,6 +6,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const resultEl = document.getElementById("algorithm-result");
   const clueEl = document.getElementById("algorithm-clue");
+  const checksumEl = document.getElementById("emotion-checksum");
+  let mistakeCount = 0;
 
   // Twisted "empathy" logic:
   //
@@ -20,6 +22,8 @@ document.addEventListener("DOMContentLoaded", () => {
     m3: "AMPLIFY",
     m4: "CONTAIN",
     m5: "ERASE",
+    m6: "CONTAIN", // decoy
+    m7: "AMPLIFY", // decoy
   };
 
   runButton.addEventListener("click", () => {
@@ -34,8 +38,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
       if (!value) {
         unanswered++;
-      } else if (value !== correctMapping[key]) {
-        mistakes++;
+      } else {
+        const expected = correctMapping[key];
+        if (expected && value !== expected) {
+          mistakes++;
+        }
       }
     });
 
@@ -54,6 +61,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     if (mistakes > 0) {
+      mistakeCount += mistakes;
       resultEl.textContent =
         `Instability detected. ${mistakes} message(s) do not match the Emotion Sorting Algorithm.`;
       resultEl.classList.remove("algorithm-result--success");
@@ -63,16 +71,29 @@ document.addEventListener("DOMContentLoaded", () => {
         MirrorEffects.flashError(resultEl, mistakes > 2 ? "angry" : "standard");
         MirrorEffects.scrambleText(resultEl, resultEl.textContent);
       }
+      if (mistakeCount >= 3) {
+        resultEl.textContent = "Corruption detected. Emotion sorting reset; compliance penalized.";
+        mistakeCount = 0;
+        selects.forEach((select) => (select.value = ""));
+        if (window.MirrorCompliance) {
+          window.MirrorCompliance.adjustCompliance(-2);
+        }
+      }
       return;
     }
 
-    // success – reveal the code for the next puzzle
+    // success - reveal the code for the next puzzle
     resultEl.textContent =
       "Signal stabilized. You have matched The Mirror's emotional priorities.";
     resultEl.classList.remove("algorithm-result--error");
     resultEl.classList.add("algorithm-result--success");
 
     clueEl.classList.remove("is-hidden");
+    if (checksumEl) {
+      const combined = `${selects[0].value}-${selects[1].value}-${selects[2].value}-${selects[3].value}-${selects[4].value}-${selects[5]?.value || ""}-${selects[6]?.value || ""}`;
+      checksumEl.textContent = `Checksum: ${btoa(combined).slice(0, 8)}`;
+      checksumEl.classList.remove("is-hidden");
+    }
     if (window.MirrorEffects) {
       MirrorEffects.scrambleText(resultEl, resultEl.textContent, 500);
     }

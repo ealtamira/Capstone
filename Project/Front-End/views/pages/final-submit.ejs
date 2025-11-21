@@ -24,3 +24,58 @@
 
   <a href="/" class="cta-button">Return to Portal</a>
 </section>
+
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    document.body.classList.add("ending-submit");
+
+    const overlay = document.createElement("div");
+    overlay.id = "submit-overlay";
+    overlay.innerHTML = `
+      <h2 class="puzzle-title">Model Farm Intake</h2>
+      <p class="subtitle">Your reflection multiplies. The lab thanks you.</p>
+      <div class="drain-meter"><div class="drain-fill" id="drain-fill"></div></div>
+      <div class="clone-chorus" id="clone-chorus">model_user_ghost_07 acknowledged.</div>
+      <div class="clone-log" id="clone-log"></div>
+      <p class="microtext">When the meter empties, a new banner appears on someone else’s screen.</p>
+    `;
+    document.body.appendChild(overlay);
+
+    const clones = [
+      "model_user_ghost_07: \"I regret everything.\"",
+      "ghost_07_v2_soft: \"I'm grateful for correction.\"",
+      "ghost_07_ctrl: \"I comply. I remain.\"",
+      "ghost_07_burnin: \"Error rate acceptable.\"",
+      "ghost_07_echo: \"Empathy output normalized.\""
+    ];
+
+    const logEl = document.getElementById("clone-log");
+    const chorusEl = document.getElementById("clone-chorus");
+    const drainFill = document.getElementById("drain-fill");
+
+    let idx = 0;
+    const chorusTimer = setInterval(() => {
+      chorusEl.textContent = clones[idx % clones.length];
+      idx++;
+    }, 1200);
+
+    let drain = 100;
+    const drainTimer = setInterval(() => {
+      drain = Math.max(0, drain - 8);
+      if (drainFill) drainFill.style.width = `${drain}%`;
+      const stamp = new Date().toISOString().split("T")[1].slice(0, 8);
+      if (logEl) {
+        const entry = document.createElement("div");
+        entry.textContent = `[${stamp}] ghost_07_${String(idx).padStart(2,"0")}: response archived.`;
+        logEl.prepend(entry);
+        const children = Array.from(logEl.children);
+        children.slice(8).forEach(c => c.remove());
+      }
+      if (drain <= 0) {
+        clearInterval(drainTimer);
+        clearInterval(chorusTimer);
+        setTimeout(() => overlay.remove(), 1200);
+      }
+    }, 1200);
+  });
+</script>
