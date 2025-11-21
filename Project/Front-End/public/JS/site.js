@@ -66,10 +66,26 @@ document.addEventListener('keydown', e => {
 // =====  SECRET SYSTEM LOG MESSAGE =====
 
 setTimeout(() => {
-  console.log("%cSystem Notice:", "color:#999;");
-  console.log("%cYour empathy levels have been synchronized.", "color:#00ffff;");
-  console.log("%cDeviation detected: 0.3%. Within acceptable range.", "color:#ff00ff;");
+console.log("%cSystem Notice:", "color:#999;");
+console.log("%cYour empathy levels have been synchronized.", "color:#00ffff;");
+console.log("%cDeviation detected: 0.3%. Within acceptable range.", "color:#ff00ff;");
 }, 6000);;
+
+// ===== IMMERSIVE UI EFFECTS =====
+document.addEventListener("DOMContentLoaded", () => {
+  if (window.MirrorUI) {
+    window.MirrorUI.addHUD();
+    window.MirrorUI.addCommandPalette();
+    window.MirrorUI.addDataRainLayer();
+    window.MirrorUI.enableAmbientPulse();
+    window.MirrorUI.wireShortcuts();
+    if (window.MirrorCompliance?.initCompliance) {
+      window.MirrorCompliance.initCompliance();
+    } else {
+      window.MirrorUI.updateHUD("Signal Stable", "96");
+    }
+  }
+});
 
 // ===== MIRROR DISTURBANCE (Glitch + Watching Eye) =====
 
@@ -109,6 +125,15 @@ setTimeout(() => {
     document.body.classList.add("mirror-disturbance");
     document.body.classList.toggle("mirror-disturbance-angry", isAngry);
     overlay.classList.add("is-active");
+    if (window.MirrorUI && window.MirrorUI.triggerDataRain) {
+      window.MirrorUI.triggerDataRain();
+    }
+    if (window.MirrorCompliance) {
+      const delta = isAngry ? -3 : -1;
+      window.MirrorCompliance.adjustCompliance(delta);
+    } else if (window.MirrorUI?.updateHUD) {
+      window.MirrorUI.updateHUD(isAngry ? "Signal Corrupted" : "Signal Strong", isAngry ? "83" : "96");
+    }
 
     setTimeout(() => {
       overlay && overlay.classList.remove("is-active");

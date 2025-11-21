@@ -46,6 +46,10 @@ document.addEventListener("DOMContentLoaded", () => {
       resultEl.classList.remove("algorithm-result--success");
       resultEl.classList.add("algorithm-result--error");
       clueEl.classList.add("is-hidden");
+      if (window.MirrorEffects) {
+        MirrorEffects.flashError(resultEl, "standard");
+        MirrorEffects.scrambleText(resultEl, resultEl.textContent);
+      }
       return;
     }
 
@@ -55,6 +59,10 @@ document.addEventListener("DOMContentLoaded", () => {
       resultEl.classList.remove("algorithm-result--success");
       resultEl.classList.add("algorithm-result--error");
       clueEl.classList.add("is-hidden");
+      if (window.MirrorEffects) {
+        MirrorEffects.flashError(resultEl, mistakes > 2 ? "angry" : "standard");
+        MirrorEffects.scrambleText(resultEl, resultEl.textContent);
+      }
       return;
     }
 
@@ -65,5 +73,8 @@ document.addEventListener("DOMContentLoaded", () => {
     resultEl.classList.add("algorithm-result--success");
 
     clueEl.classList.remove("is-hidden");
+    if (window.MirrorEffects) {
+      MirrorEffects.scrambleText(resultEl, resultEl.textContent, 500);
+    }
   });
 });

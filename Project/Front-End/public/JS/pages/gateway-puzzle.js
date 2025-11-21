@@ -92,6 +92,10 @@ if (document.getElementById("puzzle-grid")) {
       // Little shake effect for fun
       grid.classList.add("shake");
       setTimeout(() => grid.classList.remove("shake"), 300);
+      if (window.MirrorEffects) {
+        MirrorEffects.flashError(grid, "angry");
+        MirrorEffects.scrambleText(feedback, feedback.textContent);
+      }
     }
   }
 
@@ -117,6 +121,10 @@ if (document.getElementById("puzzle-grid")) {
 
       grid.classList.add("shake");
       setTimeout(() => grid.classList.remove("shake"), 300);
+      if (window.MirrorEffects) {
+        MirrorEffects.flashError(grid, "angry");
+        MirrorEffects.scrambleText(feedback, feedback.textContent);
+      }
     }
   });
 }

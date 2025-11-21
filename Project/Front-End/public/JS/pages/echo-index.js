@@ -52,6 +52,10 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     statusEl.innerHTML = message;
+    if (window.MirrorEffects) {
+      MirrorEffects.flashError(mazeContainer, "angry");
+      MirrorEffects.scrambleText(statusEl, statusEl.textContent);
+    }
   }
 
   function showClueForStep(stepIndex) {

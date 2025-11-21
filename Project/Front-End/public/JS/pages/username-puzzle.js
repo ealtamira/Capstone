@@ -57,6 +57,10 @@ submitBtn.addEventListener("click", () => {
   } else {
     status.textContent = "The mirror rejects your reflection.";
     status.style.color = "#ff0044";
+    if (window.MirrorEffects) {
+      MirrorEffects.flashError(document.querySelector("main"), "angry");
+      MirrorEffects.scrambleText(status, status.textContent);
+    }
   }
 });
 
@@ -65,7 +69,6 @@ document.getElementById("copy-btn").addEventListener("click", () => {
   const input = document.getElementById("username-output");
   input.select();
   document.execCommand("copy");
-  alert("Username copied to clipboard!");
   
   setTimeout(() => {
     window.location.href = "/appeal";

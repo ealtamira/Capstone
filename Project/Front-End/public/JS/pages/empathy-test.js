@@ -75,6 +75,10 @@ if (document.getElementById("question-list")) {
     if (!value) {
       codeFeedback.textContent = "Field cannot be empty. The Mirror prefers honest attempts.";
       codeFeedback.style.color = "#ff4444";
+      if (window.MirrorEffects) {
+        MirrorEffects.flashError(codeInput, "standard");
+        MirrorEffects.shake(codeInput);
+      }
       return;
     }
 
@@ -90,8 +94,11 @@ if (document.getElementById("question-list")) {
       codeFeedback.textContent = "Invalid keyword. Review the calibration log carefully.";
       codeFeedback.style.color = "#ff4444";
 
-      codeInput.classList.add("shake");
-      setTimeout(() => codeInput.classList.remove("shake"), 300);
+      if (window.MirrorEffects) {
+        MirrorEffects.flashError(codeInput, "angry");
+        MirrorEffects.shake(codeInput);
+        MirrorEffects.scrambleText(codeFeedback, codeFeedback.textContent);
+      }
     }
   });
 }
