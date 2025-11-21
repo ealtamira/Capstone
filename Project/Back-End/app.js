@@ -2,6 +2,7 @@ const express = require('express');
 const session = require('express-session');
 const cors = require('cors');
 const path = require('path');
+require("dotenv").config();
 const mongoose = require('mongoose');
 const app = express();
 const bodyParser = require('body-parser');
@@ -33,8 +34,10 @@ app.use(express.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 // --- Database Connection ---
+const MONGO_URI = process.env.MONGODB_URI;
+
 mongoose
-  .connect("mongodb://127.0.0.1:27017/notebookDB")
+  .connect(MONGO_URI)
   .then(() => console.log("✅ MongoDB Connected"))
   .catch((err) => console.error("MongoDB connection error:", err));
 
