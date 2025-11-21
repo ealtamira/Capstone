@@ -3,21 +3,31 @@ const express = require("express");
 const session = require("express-session");
 const expressLayouts = require('express-ejs-layouts');
 const cors = require("cors");
+const crypto = require("crypto");
 const path = require("path");
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 
 const app = express();
 
-// --- Session Setup ---
+// --- Session Setup ---  
 app.use(
   session({
-    secret: "replace-with-strong-secret", // TODO: change this before production
+    secret: process.env.SESSION_SECRET || crypto.randomBytes(32).toString("hex"),
     resave: false,
     saveUninitialized: true,
-    cookie: { secure: false }, // set secure: true if you later use HTTPS
+    cookie: { secure: false },
   })
 );
+
+// Give each visitor a stable anonymous ID in their session
+app.use((req, res, next) => {
+  if (!req.session.userId) {
+    req.session.userId =
+      crypto.randomUUID?.() || crypto.randomBytes(16).toString("hex");
+  }
+  next();
+});
 
 // --- Core Middleware ---
 app.use(express.json());
