@@ -24,6 +24,16 @@
     const next = clamp(value);
     localStorage.setItem(STORAGE_KEY, String(next));
     syncHUD(next);
+    if (window.MirrorUI?.showToast) {
+      const last = parseFloat(localStorage.getItem(`${STORAGE_KEY}_last`)) || next;
+      const delta = next - last;
+      if (delta !== 0) {
+        const tone = delta < 0 ? "danger" : "info";
+        const sign = delta > 0 ? "+" : "";
+        window.MirrorUI.showToast(`Compliance ${sign}${delta}`, tone);
+      }
+    }
+    localStorage.setItem(`${STORAGE_KEY}_last`, String(next));
     return next;
   }
 

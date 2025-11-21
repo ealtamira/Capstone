@@ -30,5 +30,8 @@ form.addEventListener("submit", e => {
     if (typeof window.triggerMirrorDisturbance === "function") {
       window.triggerMirrorDisturbance("angry");
     }
+    if (window.MirrorUI?.showToast) {
+      window.MirrorUI.showToast("@NullUser: Wrong key. Try the hidden gate.", "danger");
+    }
   }
 });

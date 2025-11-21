@@ -13,6 +13,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
   let currentNoteId = null;
   let allNotes = [];
+  let deleteConfirmArmed = false;
+  let deleteConfirmTimer = null;
 
   // Helpers
   function showEditor() {
@@ -149,7 +151,10 @@ document.addEventListener("DOMContentLoaded", () => {
       const content = noteContent.value.trim();
 
       if (!title || !content) {
-        alert("Please enter both a title and content before saving.");
+        setStatus("Title and content required.", "error");
+        if (window.MirrorUI?.showToast) {
+          window.MirrorUI.showToast("@NullUser: Empty reflections get discarded.", "danger");
+        }
         return;
       }
 
@@ -198,11 +203,25 @@ document.addEventListener("DOMContentLoaded", () => {
   if (deleteNoteBtn) {
     deleteNoteBtn.addEventListener("click", async () => {
       if (!currentNoteId) {
-        alert("No note selected to delete.");
+        setStatus("No note selected.", "error");
+        if (window.MirrorUI?.showToast) {
+          window.MirrorUI.showToast("@NullUser: Select a reflection first.", "danger");
+        }
         return;
       }
 
-      if (!confirm("Delete this note? This cannot be undone.")) return;
+      if (!deleteConfirmArmed) {
+        deleteConfirmArmed = true;
+        setStatus("Press delete again to purge.", "error");
+        if (window.MirrorUI?.showToast) {
+          window.MirrorUI.showToast("Confirm deletion within 3s.", "info");
+        }
+        clearTimeout(deleteConfirmTimer);
+        deleteConfirmTimer = setTimeout(() => (deleteConfirmArmed = false), 3000);
+        return;
+      }
+      deleteConfirmArmed = false;
+      clearTimeout(deleteConfirmTimer);
 
       try {
         const res = await fetch(`/api/notes/${currentNoteId}`, {

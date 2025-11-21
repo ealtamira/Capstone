@@ -49,6 +49,9 @@ if (appealForm) {
       if (typeof window.triggerMirrorDisturbance === "function") {
         window.triggerMirrorDisturbance("angry");
       }
+      if (window.MirrorUI?.showToast) {
+        window.MirrorUI.showToast("@NullUser: They already rewrote that handle.", "danger");
+      }
     }
   });
 }

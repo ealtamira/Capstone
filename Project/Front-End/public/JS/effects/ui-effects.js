@@ -42,6 +42,33 @@
     palette.classList.toggle("is-open");
   }
 
+  function ensureToastContainer() {
+    let el = doc.getElementById("mirror-toast-container");
+    if (el) return el;
+    el = doc.createElement("div");
+    el.id = "mirror-toast-container";
+    el.style.position = "fixed";
+    el.style.top = "16px";
+    el.style.right = "16px";
+    el.style.display = "grid";
+    el.style.gap = "8px";
+    el.style.zIndex = "2300";
+    doc.body.appendChild(el);
+    return el;
+  }
+
+  function showToast(message, tone = "info") {
+    const container = ensureToastContainer();
+    const toast = doc.createElement("div");
+    toast.className = `mirror-toast mirror-toast--${tone}`;
+    toast.textContent = message;
+    container.appendChild(toast);
+    setTimeout(() => {
+      toast.classList.add("is-leaving");
+      setTimeout(() => toast.remove(), 300);
+    }, 1800);
+  }
+
   function addCursorTrail() {
     const pool = [];
     const poolSize = 14;
@@ -121,6 +148,7 @@
     triggerDataRain,
     enableAmbientPulse,
     enableParallax,
-    wireShortcuts
+    wireShortcuts,
+    showToast,
   };
 })();
