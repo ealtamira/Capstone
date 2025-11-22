@@ -245,7 +245,7 @@ body.ending-disconnect #disconnect-overlay {
   color: transparent;
   user-select: none;
   cursor: default;
-  animation: micro-flash 45s ease-in-out infinite;
+  animation: micro-flash 25s ease-in-out infinite;
 }
 
 .microtext:hover,
@@ -2771,3 +2771,4 @@ button {
     transform: none;
   }
 }
+
