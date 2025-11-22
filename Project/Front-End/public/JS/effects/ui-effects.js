@@ -11,6 +11,7 @@
       <div class="hud-pill hud-danger"><span class="dot"></span><span data-hud="compliance">Compliance: 96%</span></div>
     `;
     doc.body.appendChild(hud);
+    doc.body.classList.add("with-hud");
   }
 
   function updateHUD(statusText, compliance) {

@@ -240,28 +240,31 @@ body.ending-disconnect #disconnect-overlay {
   to { background: rgba(0,0,0,0); }
 }
 
-.microtext {
-  color: transparent;
-  user-select: none;
-  cursor: default;
-}
-
+.microtext,
 .microtextclickable {
   color: transparent;
   user-select: none;
   cursor: default;
+  animation: micro-flash 45s ease-in-out infinite;
 }
 
-.microtext:hover {
-  color: #00ffff;
-  text-shadow: 0 0 5px #00ffff;
-  cursor: pointer;
-}
-
+.microtext:hover,
 .microtextclickable:hover {
   color: #00ffff;
   text-shadow: 0 0 5px #00ffff;
   cursor: pointer;
+  animation: none;
+}
+
+@keyframes micro-flash {
+  0%, 92%, 100% {
+    color: transparent;
+    text-shadow: none;
+  }
+  94%, 98% {
+    color: #00ffff;
+    text-shadow: 0 0 6px #00ffff;
+  }
 }
 
 @keyframes scanline {
@@ -440,12 +443,29 @@ textarea[aria-invalid="true"]::placeholder {
 #mirror-hud {
   position: fixed;
   top: 14px;
+  bottom: auto;
   right: 14px;
   display: grid;
   gap: 6px;
   text-align: left;
   font-size: 0.8rem;
   z-index: 2100;
+  pointer-events: none;
+}
+
+body.with-hud #content {
+  padding-top: 72px;
+}
+
+@media (max-width: 640px) {
+  body.with-hud #content {
+    padding-top: 88px;
+  }
+}
+
+body.sidebar-open #mirror-hud {
+  opacity: 0;
+  pointer-events: none;
 }
 
 #mirror-hud .hud-pill {
@@ -1222,15 +1242,20 @@ body.ending-submit {
    ============================== */
 .menu-btn {
   position: fixed;
-  top: 25px;
-  left: 25px;
+  top: 30px;
+  left: 30px;
+  padding: 6px 12px;
   font-size: 2.4rem;
   color: var(--accent);
   cursor: pointer;
-  z-index: 200;
+  z-index: 400;
   text-shadow: 0 0 12px rgba(0, 255, 255, 0.7);
-  transition: transform 0.2s ease, text-shadow 0.2s ease;
+  transition: transform 0.2s ease, text-shadow 0.2s ease, left 0.3s ease;
   filter: drop-shadow(0 0 8px rgba(0,255,255,0.35));
+}
+
+.menu-btn.open {
+  left: 300px;
 }
 
 .menu-btn:hover {
@@ -1254,7 +1279,7 @@ body.ending-submit {
     inset 0 0 15px rgba(0, 255, 255, 0.08);
   padding: 2.2rem 1.2rem;
   transition: left 0.3s ease;
-  z-index: 150;
+  z-index: 240;
 }
 
 .sidebar.active {
@@ -1314,13 +1339,14 @@ body.ending-submit {
   opacity: 0;
   pointer-events: none;
   transition: opacity 0.3s ease;
-  z-index: 100;
+  z-index: 50;
 }
 
-.overlay.show {
-  opacity: 1;
-  pointer-events: auto;
+body.sidebar-open #content {
+  transform: translateX(260px);
+  transition: transform 0.3s ease;
 }
+
 
 /* ==============================
    NOTEBOOK PAGE STYLES
@@ -2695,3 +2721,53 @@ button {
 /* ==============================
     END OF SITE.CSS
    ============================== */  
+
+/* Mobile navigation/layout tweaks */
+@media (max-width: 640px) {
+  body {
+    padding: 18px 10px;
+  }
+
+  #content {
+    padding: 0 6px;
+  }
+
+  .menu-btn {
+    top: 16px;
+    left: 16px;
+    padding: 4px 10px;
+    font-size: 2rem;
+  }
+
+  .menu-btn.open {
+    left: 70vw;
+  }
+
+  .sidebar {
+    width: 82vw;
+    left: -86vw;
+    padding: 1.6rem 1rem;
+  }
+
+  .sidebar.active {
+    left: 0;
+  }
+
+  .sidebar-title {
+    font-size: 1.05rem;
+    letter-spacing: 1px;
+  }
+
+  .sidebar-list {
+    gap: 0.6rem;
+  }
+
+  .sidebar-list a {
+    padding: 0.65rem 0.75rem;
+    font-size: 0.92rem;
+  }
+
+  body.sidebar-open #content {
+    transform: none;
+  }
+}
