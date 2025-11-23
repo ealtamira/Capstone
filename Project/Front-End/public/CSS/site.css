@@ -245,7 +245,7 @@ body.ending-disconnect #disconnect-overlay {
   color: transparent;
   user-select: none;
   cursor: default;
-  animation: micro-flash 25s ease-in-out infinite;
+  animation: micro-flash 10s ease-in-out infinite;
 }
 
 .microtext:hover,
@@ -257,11 +257,11 @@ body.ending-disconnect #disconnect-overlay {
 }
 
 @keyframes micro-flash {
-  0%, 92%, 100% {
+  0%, 70%, 100% {
     color: transparent;
     text-shadow: none;
   }
-  94%, 98% {
+  90%, 98% {
     color: #00ffff;
     text-shadow: 0 0 6px #00ffff;
   }
