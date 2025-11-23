@@ -7,12 +7,19 @@
       type="text"
       id="access-code"
       class="input-field"
-      placeholder="Enter code..."
+      placeholder="Enter code ..."
       autocomplete="off"
       aria-invalid="false"
+      aria-describedby="code-format-hint"
       required
     />
     <button type="submit" class="cta-button full-width">Submit</button>
     <p id="status" class="status-text" role="status" aria-live="polite"></p>
+    <p id="code-format-hint" class="highlight">
+      Format: lowercase word, underscore, 4 digits (15 characters total).
+    </p>
+    <p class="highlight" aria-live="polite">
+      The first door hides in a single line of text on the landing page. Follow it to the Reflection log for the needed code.
+    </p>
   </form>
 </div>
