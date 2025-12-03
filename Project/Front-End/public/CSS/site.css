@@ -240,6 +240,37 @@ body.ending-disconnect #disconnect-overlay {
   to { background: rgba(0,0,0,0); }
 }
 
+/* Slow fade to full black before redirect */
+body.final-fadeout {
+  background: #000 !important;
+  transition: background-color 2s ease;
+}
+
+body.final-fadeout #disconnect-overlay {
+  background: #000;
+  transition: opacity 2s ease, background-color 2s ease;
+}
+
+body.final-fadeout #disconnect-overlay * {
+  transition: opacity 2s ease;
+  opacity: 0.12;
+}
+
+/* Fade down base page content before blackout */
+body.page-fadeout {
+  background: #000;
+}
+
+body.page-fadeout #content,
+body.page-fadeout main,
+body.page-fadeout header,
+body.page-fadeout .mirror-shell,
+body.page-fadeout .mirror-main,
+body.page-fadeout .container {
+  opacity: 0;
+  transition: opacity 2s ease;
+}
+
 .microtext,
 .microtextclickable {
   color: transparent;
@@ -866,7 +897,14 @@ body.ending-disconnect #content {
 }
 
 #disconnect-overlay {
-  background: #000;
+  background: rgba(0, 0, 0, 0.95);
+  opacity: 1;
+  transition: background-color 2s ease, opacity 1.2s ease;
+}
+
+/* Hold overlay dim until final fade starts */
+#disconnect-overlay.pre-fade {
+  background: rgba(0, 0, 0, 0.6);
 }
 
 /* Full blackout mode for disconnect overlay */

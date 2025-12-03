@@ -46,7 +46,8 @@
 
     // Countdown eye and redirect (overlay appears after a short delay to allow reading)
     const totalMs = 60 * 1000; // 1 minute countdown
-    const preDelay = 30000; // 30 seconds before overlay appears
+    const preDelay = 45000; // 45 seconds before overlay appears
+    const fadeDelay = 30000; // fade to black after 30 seconds
 
     setTimeout(() => {
       const overlay = document.createElement("div");
@@ -64,7 +65,8 @@
         <p class="microtext">When the eye fills your vision, you reappear elsewhere.</p>
       `;
       document.body.appendChild(overlay);
-      document.body.classList.add("full-blackout");
+      // Delay full blackout until the fade sequence begins
+      overlay.classList.add("pre-fade");
 
       const eye = overlay.querySelector(".disconnect-eye");
       const timerEl = document.getElementById("disconnect-timer");
@@ -101,12 +103,6 @@
         const sat = 1 + progress * 1.5;
         const glow = (0.2 + progress * 0.8).toFixed(2);
         eye.style.filter = `hue-rotate(${hue}deg) saturate(${sat}) drop-shadow(0 0 ${8 + 24 * progress}px rgba(255,0,0,${glow}))`;
-        // Force background to black after the eye appears
-        overlay.style.backgroundColor = "rgba(0, 0, 0, 1)";
-        if (progress > 0) {
-          overlayTextEls.forEach(el => { if (el) { el.style.transition = "opacity 0.5s ease"; el.style.opacity = "0"; } });
-          pageTextEls.forEach(el => { if (el) { el.style.transition = "opacity 0.8s ease"; el.style.opacity = "0"; } });
-        }
         if (remaining <= 0) {
           window.location.href = "/";
         } else {
@@ -115,5 +111,21 @@
       };
       tick();
     }, preDelay);
+
+    // Fade out the underlying page content before the full blackout
+    setTimeout(() => {
+      document.body.classList.add("page-fadeout");
+    }, fadeDelay);
+
+    // Gradually fade the screen to black before the redirect
+    setTimeout(() => {
+      document.body.classList.add("final-fadeout", "full-blackout");
+      const overlay = document.getElementById("disconnect-overlay");
+      if (overlay) overlay.classList.remove("pre-fade");
+      const overlayTextEls = document.querySelectorAll("#disconnect-overlay *");
+      const pageTextEls = document.querySelectorAll(".puzzle-title, .puzzle-subtitle, .puzzle-lore p, .clue-quote, .hint");
+      overlayTextEls.forEach(el => { el.style.transition = "opacity 2s ease"; el.style.opacity = "0"; });
+      pageTextEls.forEach(el => { el.style.transition = "opacity 1.6s ease"; el.style.opacity = "0"; });
+    }, fadeDelay + 5000);
   });
 </script>
