@@ -48,6 +48,8 @@ if (document.getElementById("question-list")) {
   const codeSubmit = document.getElementById("calibration-submit");
   const codeFeedback = document.getElementById("calibration-feedback");
   const collectedTokens = new Set();
+  const tokenUsage = new Map(); // tracks how many times a token is selected across questions
+  const selections = new Map(); // current option choice per question
   let failedCodes = 0;
   let lockout = false;
   let lockTimer = null;
@@ -56,6 +58,30 @@ if (document.getElementById("question-list")) {
     if (answered.size === questionBlocks.length) {
       summarySection.classList.remove("hidden");
       console.log("%c[MIRROR_LOG] Calibration complete. Awaiting keyword.", "color:#00ff88;");
+    }
+  }
+
+  function updateTokensForQuestion(qId, prevOptionId, nextOptionId) {
+    const data = questions[qId];
+    if (!data || !data.rewrites) return;
+
+    const prevToken = prevOptionId ? data.rewrites[prevOptionId]?.token : "";
+    const nextToken = nextOptionId ? data.rewrites[nextOptionId]?.token : "";
+
+    if (prevToken) {
+      const count = tokenUsage.get(prevToken) || 0;
+      if (count <= 1) {
+        tokenUsage.delete(prevToken);
+        collectedTokens.delete(prevToken);
+      } else {
+        tokenUsage.set(prevToken, count - 1);
+      }
+    }
+
+    if (nextToken) {
+      const count = tokenUsage.get(nextToken) || 0;
+      tokenUsage.set(nextToken, count + 1);
+      collectedTokens.add(nextToken);
     }
   }
 
@@ -77,21 +103,32 @@ if (document.getElementById("question-list")) {
     opts.forEach(btn => {
       btn.addEventListener("click", () => {
         const oId = btn.getAttribute("data-option-id");
+        const previousSelection = selections.get(qId);
         const data = questions[qId];
 
-        // lock this question selection
-        opts.forEach(b => b.disabled = true);
+        // allow reselection by toggling classes instead of disabling options
+        opts.forEach(b => {
+          b.disabled = false;
+          if (b !== btn) {
+            b.classList.remove("selected");
+          }
+        });
         btn.classList.add("selected");
 
         if (data && data.rewrites[oId] && rewriteEl) {
           const entry = data.rewrites[oId];
           rewriteEl.textContent = entry.text;
           if (entry.token) {
-            collectedTokens.add(entry.token);
+            updateTokensForQuestion(qId, previousSelection, oId);
             rewriteEl.textContent += ` [${entry.token}]`;
+          } else {
+            updateTokensForQuestion(qId, previousSelection, oId);
           }
+        } else {
+          updateTokensForQuestion(qId, previousSelection, oId);
         }
 
+        selections.set(qId, oId);
         answered.add(qId);
         checkAllAnswered();
       });

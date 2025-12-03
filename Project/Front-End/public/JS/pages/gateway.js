@@ -1,7 +1,6 @@
 const form = document.getElementById("verify-form");
 const status = document.getElementById("status");
 const codeInput = document.getElementById("access-code");
-const microHint = document.getElementById("gateway-micro-hint");
 
 // Set the correct passcode (from the Reflection page)
 const correctPasscode = "reflection_0821";

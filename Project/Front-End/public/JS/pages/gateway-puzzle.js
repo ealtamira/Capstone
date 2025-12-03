@@ -13,15 +13,12 @@ if (document.getElementById("puzzle-grid")) {
   const alphabet = ["T","R","O","L","S","E","A","N","C","I","M"];
 
   let solved = false;
-  let checksumUnlocked = false;
   let attempts = 0;
 
   // DOM refs
   const grid = document.getElementById("puzzle-grid");
   const unlockSection = document.getElementById("unlock-section");
   const checkBtn = document.getElementById("align-check-btn");
-  const input = document.getElementById("puzzle-input");
-  const checksumInput = document.getElementById("puzzle-checksum");
   const submitBtn = document.getElementById("submit-btn");
   const feedback = document.getElementById("feedback");
 
@@ -81,16 +78,8 @@ if (document.getElementById("puzzle-grid")) {
       console.log("%c[MIRROR_LOG] Alignment Achieved. Reflection stabilized.", "color:#0f0; font-weight:bold;");
 
       unlockSection.classList.remove("hidden");
-      feedback.textContent = "Sequence aligned. Enter checksum to unlock.";
+      feedback.textContent = "Sequence aligned. Submit to unlock.";
       feedback.style.color = "#00ff88";
-
-      // Soft hint: show the expected phrase in the placeholder
-      if (input && !input.value) {
-        input.placeholder = TARGET_WORD;
-      }
-      if (checksumInput && !checksumInput.value) {
-        checksumInput.placeholder = "2-digit checksum";
-      }
     } else {
       feedback.textContent = "Alignment incomplete. Recalibrate your reflection.";
       feedback.style.color = "#ff4444";
@@ -113,21 +102,8 @@ if (document.getElementById("puzzle-grid")) {
      SUBMIT PHRASE
      ============================== */
   submitBtn.addEventListener("click", () => {
-    const value = (input.value || "").trim().toUpperCase();
-    const checksumVal = checksumInput ? checksumInput.value.trim() : "";
-    const checksum = TARGET_WORD.split("").reduce((sum, ch) => sum + (ch.charCodeAt(0) - 64), 0) % 97;
-
-    if (value === TARGET_WORD && checksumVal === String(checksum)) {
-      feedback.textContent = "Access Granted. Proceeding to Reflection...";
-      feedback.style.color = "#0f0";
-      if (window.MirrorCompliance) {
-        window.MirrorCompliance.adjustCompliance(2);
-      }
-      setTimeout(() => {
-        window.location.href = "/reflection";
-      }, 1200);
-    } else {
-      feedback.textContent = "The phrase does not match your alignment.";
+    if (!solved) {
+      feedback.textContent = "Alignment incomplete. Recalibrate your reflection.";
       feedback.style.color = "#ff4444";
 
       grid.classList.add("shake");
@@ -141,6 +117,16 @@ if (document.getElementById("puzzle-grid")) {
         window.MirrorCompliance.adjustCompliance(-2);
         attempts = 0;
       }
+      return;
     }
+
+    feedback.textContent = "Access Granted. Proceeding to Reflection...";
+    feedback.style.color = "#0f0";
+    if (window.MirrorCompliance) {
+      window.MirrorCompliance.adjustCompliance(2);
+    }
+    setTimeout(() => {
+      window.location.href = "/reflection";
+    }, 1200);
   });
 }
