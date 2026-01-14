@@ -6,7 +6,6 @@ const expressLayouts = require('express-ejs-layouts');
 const cors = require("cors");
 const crypto = require("crypto");
 const path = require("path");
-const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 
 const app = express();
