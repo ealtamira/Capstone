@@ -1,13 +1,26 @@
 const express = require("express");
 const path = require("path");
 const fs = require("fs");
-const { getProgress } = require("../lib/progress");
 
 const router = express.Router();
 const INTEL_PATH = path.join(__dirname, "..", "data", "intel.json");
 
 router.get("/mission-control", async (req, res) => {
-  const progressDoc = await getProgress(req.session?.userId);
+  let progressDoc = null;
+  try {
+    // Fetch progress from backend API
+    const response = await fetch("http://localhost:3001/api/progress", {
+      method: "GET",
+      credentials: "include",
+      headers: { "Content-Type": "application/json" },
+    });
+    if (response.ok) {
+      progressDoc = await response.json();
+    }
+  } catch (err) {
+    console.error("Failed to fetch progress from backend:", err);
+  }
+
   const sessionProgress = req.session?.progress || {};
   const flags = {
     ...(progressDoc?.flags || {}),
